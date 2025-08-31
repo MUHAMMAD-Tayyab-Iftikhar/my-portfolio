@@ -33,6 +33,7 @@
     }
 
     /* NAV */
+    
     .navbar{
       backdrop-filter: blur(6px);
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -586,79 +587,69 @@
   <!-- Scripts: Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
-    // Insert current year
-    document.getElementById('year').innerText = new Date().getFullYear();
+ <script>
+  // Insert current year
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Typing effect for small list of phrases
-    const phrases = ['Social Media Manager', 'Blog Writer', 'Ads Specialist', 'Daraz Store Creator'];
-    let pIndex = 0, cIndex = 0, forward = true;
-    const typingEl = document.getElementById('typing');
+  // Typing effect in hero
+  const typingText = ["Social Media Manager", "Blog Writer", "Freelancer"];
+  let typingIndex = 0, charIndex = 0, currentText = "";
+  const typingEl = document.getElementById("typing");
 
-    function typeLoop() {
-      const current = phrases[pIndex];
-      if (forward) {
-        cIndex++;
-        typingEl.innerText = current.slice(0, cIndex);
-        if (cIndex === current.length) { forward=false; setTimeout(typeLoop,1200); return; }
-      } else {
-        cIndex--;
-        typingEl.innerText = current.slice(0, cIndex);
-        if (cIndex === 0) { forward=true; pIndex = (pIndex+1) % phrases.length; }
-      }
-      setTimeout(typeLoop, 80);
+  function type() {
+    if (charIndex < typingText[typingIndex].length) {
+      currentText += typingText[typingIndex].charAt(charIndex);
+      typingEl.textContent = currentText;
+      charIndex++;
+      setTimeout(type, 120);
+    } else {
+      setTimeout(erase, 1500);
     }
-    typeLoop();
+  }
 
-    // Smooth reveal on scroll using IntersectionObserver
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, {threshold: 0.12});
+  function erase() {
+    if (charIndex > 0) {
+      currentText = typingText[typingIndex].substring(0, charIndex - 1);
+      typingEl.textContent = currentText;
+      charIndex--;
+      setTimeout(erase, 80);
+    } else {
+      typingIndex = (typingIndex + 1) % typingText.length;
+      setTimeout(type, 300);
+    }
+  }
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  type();
 
-    // Contact form - opens mailto (fallback). For production replace with Formspree or backend.
-    function sendForm(e){
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-      const alertBox = document.getElementById('formAlert');
-
-      if(!name || !email || !message){
-        alertBox.style.display='block';
-        alertBox.innerHTML = '<div class="alert alert-warning">Please fill all fields.</div>';
-        return false;
+  // Reveal on scroll
+  const reveals = document.querySelectorAll(".reveal");
+  window.addEventListener("scroll", () => {
+    reveals.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 60) {
+        el.classList.add("visible");
       }
+    });
+  });
 
-      // create mailto link
-      const subject = encodeURIComponent('Portfolio contact from ' + name);
-      const body = encodeURIComponent(
-        'Name: ' + name + '\\n' +
-        'Email: ' + email + '\\n\\n' +
-        message + '\\n\\n' +
-        '--- Sent from portfolio site'
-      );
-      const mailto = 'mailto:abidaparveen0124@gmail.com?subject=' + subject + '&body=' + body;
-      // attempt to open mail client
-      window.location.href = mailto;
+  // Contact form (simple validation + alert)
+  function sendForm(e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    const alertBox = document.getElementById("formAlert");
 
-      alertBox.style.display='block';
-      alertBox.innerHTML = '<div class="alert alert-success">Mail client opened — if it did not, email: abidaparveen0124@gmail.com</div>';
-      document.getElementById('contactForm').reset();
+    if (!name || !email || !message) {
+      alertBox.style.display = "block";
+      alertBox.innerHTML = `<div class="alert alert-danger">Please fill all fields.</div>`;
       return false;
     }
 
-    // small progressive enhancement: add hover shadow on nav links when not collapsed
-    (function(){
-      const nav = document.querySelectorAll('.nav-link');
-      nav.forEach(n => n.addEventListener('click', () => {
-        const collapse = document.querySelector('.navbar-collapse');
-        if(collapse.classList.contains('show')) new bootstrap.Collapse(collapse); // close on mobile
-      }));
-    })();
-  </script>
-</body>
-</html>
+    alertBox.style.display = "block";
+    alertBox.innerHTML = `<div class="alert alert-success">Thanks ${name}, your message has been sent!</div>`;
+    document.getElementById("contactForm").reset();
+    return false;
+  }
+</script>
+
