@@ -1,193 +1,300 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUHAMMAD Tayyab Iftikhar | Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muhammad Tayyab Iftikhar — Portfolio</title>
+  <meta name="description" content="Muhammad Tayyab Iftikhar — WordPress Web Developer, Social Media Manager & Blog Writer. Portfolio & contact." />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+
   <style>
-    body {
-      transition: background 0.5s, color 0.5s;
+    :root{
+      --accent-1: #0d6efd;
+      --accent-2: #6f42c1;
+      --bg-dark: #0f1724;
+      --bg-light: #ffffff;
+      --text-dark: #e9eef8;
+      --text-light: #333333;
+      --glass: rgba(255,255,255,0.06);
     }
-    .dark-mode {
-      background: #121212;
-      color: #f5f5f5;
+
+    body{
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #0b1020, #0f1724);
+      color: var(--text-dark);
+      transition: background 0.4s, color 0.4s;
     }
-    header {
-      background: linear-gradient(270deg, #6a11cb, #2575fc);
-      background-size: 400% 400%;
-      animation: gradientBG 8s ease infinite;
-      color: white;
-      padding: 100px 20px;
-      text-align: center;
-      position: relative;
+    body.light{
+      background: #fdfdfd;
+      color: var(--text-light);
     }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+
+    /* NAV */
+    .navbar{
+      backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.3);
+      transition: background 0.4s;
     }
-    header h1 {
-      font-size: 3rem;
-      font-weight: bold;
+    body.light .navbar{
+      background: rgba(255,255,255,0.8);
     }
-    header h1 span {
-      display: block;
-      font-size: 2rem;
+    .nav-link{color: inherit; font-weight: 500;}
+
+    /* HERO */
+    .hero{
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      align-items: center;
+      gap: 2rem;
+      padding: 4rem 2rem;
     }
-    .download-btn {
-      margin-top: 20px;
-    }
-    .about-section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-    .about-section img {
-      width: 180px;
-      height: 180px;
+    @media(max-width: 992px){.hero{grid-template-columns:1fr;}}
+
+    .profile-photo{
+      width: 320px;
+      height: 320px;
       border-radius: 50%;
-      border: 5px solid #2575fc;
-      margin-bottom: 20px;
-      animation: float 3s ease-in-out infinite;
+      overflow: hidden;
+      margin: auto;
+      border: 4px solid var(--accent-1);
+      box-shadow: 0 0 25px rgba(13,110,253,0.4);
+      animation: floaty 6s ease-in-out infinite;
     }
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0px); }
+    @keyframes floaty {0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+    .hero .name{
+      font-size: 2.8rem;
+      font-weight: 800;
     }
-    .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-      font-size: 1.5rem;
+    .hero .tagline{font-size: 1.2rem; color: var(--accent-1); font-weight: 600;}
+
+    /* SERVICES */
+    .services-grid .card{
+      border-radius: 16px;
+      background: var(--glass);
+      padding: 1.5rem;
+      transition: transform .3s, box-shadow .3s;
     }
-    .service-card {
-      transition: transform 0.4s;
+    .services-grid .card:hover{
+      transform: translateY(-8px);
+      box-shadow:0 12px 30px rgba(0,0,0,0.4);
     }
-    .service-card:hover {
-      transform: scale(1.05);
+    .service-icon{
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .portfolio-item {
+
+    /* PORTFOLIO */
+    .portfolio-grid .card{
+      border-radius: 14px;
       overflow: hidden;
       position: relative;
+      transition: transform .35s;
     }
-    .portfolio-item img {
-      transition: transform 0.5s;
-    }
-    .portfolio-item:hover img {
-      transform: scale(1.1);
-    }
-    .portfolio-overlay {
+    .portfolio-grid .card:hover{transform: scale(1.03);}
+    .portfolio-grid img{transition: transform .4s;}
+    .portfolio-grid .card:hover img{transform: scale(1.1);}
+    .portfolio-overlay{
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      bottom: 0; left: 0; right: 0;
       background: rgba(0,0,0,0.6);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.4s;
+      padding: 1rem;
+      color: #fff;
+      transform: translateY(100%);
+      transition: transform .3s;
     }
-    .portfolio-item:hover .portfolio-overlay {
-      opacity: 1;
+    .portfolio-grid .card:hover .portfolio-overlay{transform: translateY(0);}
+
+    /* ABOUT */
+    .stats-card{
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      background: var(--glass);
     }
-    .contact-section form {
-      backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.1);
-      padding: 30px;
-      border-radius: 15px;
-      animation: fadeIn 2s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .stats-card h3{font-weight: 800;}
+
+    /* CONTACT */
+    .form-control{background:transparent;color:inherit;border-radius:12px;}
+    .form-control:focus{border-color: var(--accent-1);box-shadow:0 0 0 0.2rem rgba(13,110,253,.25)}
+
+    /* FOOTER */
+    footer{padding:2rem;text-align:center;font-size:.9rem;color:#aaa;}
+
+    /* THEME TOGGLE */
+    .theme-toggle{
+      cursor:pointer;
+      border:none;
+      background:none;
+      font-size:1.3rem;
+      margin-left:1rem;
+      color:inherit;
     }
   </style>
 </head>
 <body>
-  <header>
-    <i class="fas fa-adjust theme-toggle" onclick="toggleTheme()"></i>
-    <h1>MUHAMMAD <span>Tayyab Iftikhar</span></h1>
-    <p>Software Engineer | Web Developer | WordPress Specialist</p>
-    <a href="MUHAMMAD_Tayyab_Iftikhar_CV.pdf" download class="btn btn-light download-btn"><i class="fas fa-download"></i> Download CV</a>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Tayyab</a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navmenu"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse justify-content-end" id="navmenu">
+        <ul class="navbar-nav align-items-center gap-2">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li><button id="themeToggle" class="theme-toggle"><i class="bi bi-moon"></i></button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero container">
+    <div>
+      <h1 class="name">Muhammad Tayyab Iftikhar</h1>
+      <div class="tagline">WordPress Developer • SMM • Ads Specialist</div>
+      <p class="mt-3">I design fast, conversion-focused websites and manage social media & ad campaigns for healthcare and SMEs.</p>
+      <div class="mt-4">
+        <a href="#contact" class="btn btn-lg btn-primary me-2">Hire Me</a>
+        <a href="#portfolio" class="btn btn-lg btn-outline-light">See Work</a>
+      </div>
+    </div>
+    <div class="profile-photo">
+      <img src="image/profile.jpg" alt="Profile" style="width:100%;height:100%;object-fit:cover">
+    </div>
   </header>
 
-  <section class="about-section">
-    <img src="your-image.jpg" alt="MUHAMMAD Tayyab Iftikhar">
-    <h2>About Me</h2>
-    <p>I am an enthusiastic and detail-oriented Software Engineering student with hands-on experience in frontend development and WordPress websites. Skilled in HTML, CSS, JavaScript, and WordPress customization. Passionate about building modern, responsive, and user-friendly websites.</p>
-  </section>
-
-  <section class="container py-5">
-    <h2 class="text-center mb-4">Services</h2>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card service-card p-3 text-center shadow">
-          <i class="fas fa-code fa-3x mb-3 text-primary"></i>
-          <h5>Web Development</h5>
-          <p>Modern responsive websites using HTML, CSS, JavaScript, and frameworks.</p>
+  <!-- SERVICES -->
+  <section id="services" class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">Services</h2>
+    <div class="row g-4 services-grid">
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 text-center">
+          <div class="service-icon"><i class="bi bi-layout-text-window-reverse"></i></div>
+          <h5 class="mt-2">WordPress Development</h5>
+          <p>Custom themes, Elementor, WooCommerce, speed & SEO basics</p>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card service-card p-3 text-center shadow">
-          <i class="fab fa-wordpress fa-3x mb-3 text-info"></i>
-          <h5>WordPress Development</h5>
-          <p>Custom WordPress websites with themes, plugins, and SEO optimization.</p>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 text-center">
+          <div class="service-icon"><i class="bi bi-people"></i></div>
+          <h5 class="mt-2">Social Media</h5>
+          <p>Content, scheduling, engagement & growth</p>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card service-card p-3 text-center shadow">
-          <i class="fas fa-paint-brush fa-3x mb-3 text-success"></i>
-          <h5>UI/UX Design</h5>
-          <p>Beautiful, user-friendly designs with focus on interactivity and aesthetics.</p>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 text-center">
+          <div class="service-icon"><i class="bi bi-megaphone"></i></div>
+          <h5 class="mt-2">Ads Management</h5>
+          <p>Google Ads, Facebook Ads, ROI-focused optimization</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 text-center">
+          <div class="service-icon"><i class="bi bi-shop-window"></i></div>
+          <h5 class="mt-2">Daraz Stores</h5>
+          <p>Setup, product uploads, optimization</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="container py-5">
-    <h2 class="text-center mb-4">Portfolio</h2>
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">Portfolio</h2>
+    <div class="row g-4 portfolio-grid">
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <img src="https://s.wordpress.com/mshots/v1/https://dratharhameed.com?w=1200" alt="Dr Athar Hameed" class="w-100">
+          <div class="portfolio-overlay">Clinic Website</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <img src="https://s.wordpress.com/mshots/v1/https://saeekamil.com?w=1200" alt="Sae e Kamil" class="w-100">
+          <div class="portfolio-overlay">Service Website</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <img src="https://s.wordpress.com/mshots/v1/https://accountkeep.com?w=1200" alt="AccountKeep" class="w-100">
+          <div class="portfolio-overlay">Business Website</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">About Me</h2>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <p>I build pixel-accurate WordPress websites, craft social media strategies, and run paid campaigns to help clients get measurable results.</p>
+        <ul class="list-inline">
+          <li class="list-inline-item badge bg-primary">HTML</li>
+          <li class="list-inline-item badge bg-primary">CSS</li>
+          <li class="list-inline-item badge bg-primary">WordPress</li>
+          <li class="list-inline-item badge bg-primary">Google Ads</li>
+          <li class="list-inline-item badge bg-primary">Facebook Ads</li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-6"><div class="stats-card"><h3>20+</h3><p>Websites Built</p></div></div>
+          <div class="col-6"><div class="stats-card"><h3>5+</h3><p>Active Niches</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">Contact</h2>
     <div class="row g-4">
-      <div class="col-md-4 portfolio-item">
-        <img src="project1.jpg" class="img-fluid rounded shadow">
-        <div class="portfolio-overlay">Project 1</div>
+      <div class="col-lg-6">
+        <form action="https://formspree.io/f/mgvllljd" method="POST" class="p-4 rounded" style="background:var(--glass)">
+          <div class="mb-3"><input type="text" name="name" placeholder="Name" class="form-control" required></div>
+          <div class="mb-3"><input type="email" name="email" placeholder="Email" class="form-control" required></div>
+          <div class="mb-3"><textarea name="message" rows="5" placeholder="Message" class="form-control" required></textarea></div>
+          <button class="btn btn-primary w-100">Send Message</button>
+        </form>
       </div>
-      <div class="col-md-4 portfolio-item">
-        <img src="project2.jpg" class="img-fluid rounded shadow">
-        <div class="portfolio-overlay">Project 2</div>
-      </div>
-      <div class="col-md-4 portfolio-item">
-        <img src="project3.jpg" class="img-fluid rounded shadow">
-        <div class="portfolio-overlay">Project 3</div>
+      <div class="col-lg-6">
+        <div class="p-4 rounded" style="background:var(--glass)">
+          <p><i class="bi bi-whatsapp"></i> WhatsApp: <a href="https://wa.me/923458368083" target="_blank">+92 345 8368083</a></p>
+          <p><i class="bi bi-envelope"></i> Email: <a href="mailto:abidaparveen0124@gmail.com">abidaparveen0124@gmail.com</a></p>
+          <p><i class="bi bi-linkedin"></i> <a href="https://www.linkedin.com/in/muhammad-tayyab-iftikhar-a88786284/" target="_blank">LinkedIn</a></p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="container py-5 contact-section">
-    <h2 class="text-center mb-4">Contact Me</h2>
-    <form>
-      <div class="mb-3">
-        <input type="text" class="form-control" placeholder="Your Name" required>
-      </div>
-      <div class="mb-3">
-        <input type="email" class="form-control" placeholder="Your Email" required>
-      </div>
-      <div class="mb-3">
-        <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Send Message</button>
-    </form>
-  </section>
+  <!-- FOOTER -->
+  <footer>
+    © <span id="year"></span> Muhammad Tayyab Iftikhar — Portfolio
+  </footer>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-    }
+    document.getElementById('year').innerText = new Date().getFullYear();
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click',()=>{
+      document.body.classList.toggle('light');
+      toggleBtn.innerHTML = document.body.classList.contains('light') ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+    });
   </script>
 </body>
 </html>
