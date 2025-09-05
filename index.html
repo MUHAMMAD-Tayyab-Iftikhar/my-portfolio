@@ -3,298 +3,443 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Muhammad Tayyab Iftikhar — Portfolio</title>
-  <meta name="description" content="Muhammad Tayyab Iftikhar — WordPress Web Developer, Social Media Manager & Blog Writer. Portfolio & contact." />
-
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
-  <!-- Google Fonts -->
+  <title>Muhammad Tayyab Iftikhar — Portfolio (Redesigned)</title>
+  <meta name="description" content="Muhammad Tayyab Iftikhar — WordPress Developer, Social Media Manager & Blog Writer. Portfolio & contact." />
+  <!-- Google Font (scoped via wrapper) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
-
   <style>
-    :root{
-      --accent-1: #0d6efd;
-      --accent-2: #6f42c1;
-      --bg-dark: #0f1724;
-      --bg-light: #ffffff;
-      --text-dark: #e9eef8;
-      --text-light: #333333;
-      --glass: rgba(255,255,255,0.06);
-    }
+    /*
+      IMPORTANT: Everything is scoped under #mtp to avoid impacting existing header/footer
+      Paste this entire file into Elementor's HTML widget.
+    */
 
-    body{
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, #0b1020, #0f1724);
-      color: var(--text-dark);
-      transition: background 0.4s, color 0.4s;
-    }
-    body.light{
-      background: #fdfdfd;
-      color: var(--text-light);
-    }
+    :root { --mtp-accent:#7c9cff; --mtp-accent-2:#8a5cff; --mtp-bg:#0b0f1a; --mtp-panel:rgba(255,255,255,.06); --mtp-text:#eef2ff; --mtp-muted:#a9b4d4; --mtp-grid:rgba(255,255,255,.04); }
 
-    /* NAV */
-    .navbar{
-      backdrop-filter: blur(8px);
-      background: rgba(0,0,0,0.3);
-      transition: background 0.4s;
-    }
-    body.light .navbar{
-      background: rgba(255,255,255,0.8);
-    }
-    .nav-link{color: inherit; font-weight: 500;}
+    #mtp{ font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial; color:var(--mtp-text); background: radial-gradient(1200px 600px at 10% -10%, rgba(124,156,255,.18), transparent 60%), radial-gradient(1000px 500px at 110% 10%, rgba(138,92,255,.12), transparent 60%), linear-gradient(180deg,#0b0f1a,#0e1422); overflow:hidden; position:relative; isolation:isolate; }
 
-    /* HERO */
-    .hero{
-      min-height: 90vh;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      align-items: center;
-      gap: 2rem;
-      padding: 4rem 2rem;
-    }
-    @media(max-width: 992px){.hero{grid-template-columns:1fr;}}
+    #mtp a { color: inherit; }
 
-    .profile-photo{
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin: auto;
-      border: 4px solid var(--accent-1);
-      box-shadow: 0 0 25px rgba(13,110,253,0.4);
-      animation: floaty 6s ease-in-out infinite;
-    }
-    @keyframes floaty {0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    /* Layout helpers */
+    #mtp .mtp-container{ max-width:1100px; margin:0 auto; padding: clamp(16px, 2vw, 24px); }
+    #mtp .mtg{ display:grid; gap: clamp(18px,1.8vw,24px); }
 
-    .hero .name{
-      font-size: 2.8rem;
-      font-weight: 800;
-    }
-    .hero .tagline{font-size: 1.2rem; color: var(--accent-1); font-weight: 600;}
+    /* Glass card */
+    #mtp .glass{ background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)); border:1px solid rgba(255,255,255,.1); backdrop-filter: blur(8px); border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
 
-    /* SERVICES */
-    .services-grid .card{
-      border-radius: 16px;
-      background: var(--glass);
-      padding: 1.5rem;
-      transition: transform .3s, box-shadow .3s;
-    }
-    .services-grid .card:hover{
-      transform: translateY(-8px);
-      box-shadow:0 12px 30px rgba(0,0,0,0.4);
-    }
-    .service-icon{
-      font-size: 2rem;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    /* Section shells */
+    #mtp section{ position:relative; padding: clamp(48px, 8vw, 92px) 0; }
+    #mtp .section-head{ display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:20px; }
+    #mtp .section-title{ font-size: clamp(20px,2.2vw,28px); font-weight:800; letter-spacing:.2px; }
+    #mtp .section-sub{ color:var(--mtp-muted); font-size: clamp(13px,1.2vw,15px); }
 
-    /* PORTFOLIO */
-    .portfolio-grid .card{
-      border-radius: 14px;
-      overflow: hidden;
-      position: relative;
-      transition: transform .35s;
-    }
-    .portfolio-grid .card:hover{transform: scale(1.03);}
-    .portfolio-grid img{transition: transform .4s;}
-    .portfolio-grid .card:hover img{transform: scale(1.1);}
-    .portfolio-overlay{
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(0,0,0,0.6);
-      padding: 1rem;
-      color: #fff;
-      transform: translateY(100%);
-      transition: transform .3s;
-    }
-    .portfolio-grid .card:hover .portfolio-overlay{transform: translateY(0);}
+    /* Top nav (local only, won’t touch site header) */
+    #mtp .local-nav{ position:sticky; top:0; z-index:5; background:linear-gradient(180deg, rgba(11,15,26,.85), rgba(11,15,26,.65)); backdrop-filter: blur(6px); border-bottom:1px solid var(--mtp-grid); }
+    #mtp .local-nav .wrap{ display:flex; align-items:center; justify-content:space-between; }
+    #mtp .brand{ display:flex; align-items:center; gap:10px; }
+    #mtp .brand-img{ width:42px; height:42px; border-radius:12px; overflow:hidden; border:1px solid var(--mtp-grid); }
+    #mtp .brand h1{ font-size:16px; margin:0; font-weight:800; }
+    #mtp .local-links{ display:flex; gap:12px; flex-wrap:wrap; }
+    #mtp .chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border:1px solid var(--mtp-grid); background:rgba(255,255,255,.04); font-size:13px; text-decoration:none; transition:.25s ease; }
+    #mtp .chip:hover{ transform: translateY(-2px); box-shadow:0 8px 14px rgba(0,0,0,.25); }
+    #mtp .cta{ padding:10px 14px; border-radius:12px; border:1px solid var(--mtp-grid); background: linear-gradient(135deg, rgba(124,156,255,.18), rgba(138,92,255,.12)); text-decoration:none; font-weight:700; font-size:13px; }
 
-    /* ABOUT */
-    .stats-card{
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      background: var(--glass);
-    }
-    .stats-card h3{font-weight: 800;}
+    /* Hero */
+    #mtp .hero{ min-height:66vh; display:grid; grid-template-columns: 1.25fr .9fr; gap: clamp(18px, 2.2vw, 28px); align-items:center; }
+    #mtp .hero-card{ padding: clamp(18px,2.2vw,28px); position:relative; overflow:hidden; }
+    #mtp .hero .kicker{ font-size:12px; letter-spacing: .22em; text-transform: uppercase; color:var(--mtp-muted); }
+    #mtp .hero .name{ font-weight:900; font-size: clamp(28px,4.2vw,48px); line-height:1.05; margin:.2em 0; }
+    #mtp .typing{ color:var(--mtp-accent); font-weight:800; }
+    #mtp .hero p{ color:var(--mtp-muted); font-size: clamp(14px,1.2vw,16px); }
+    #mtp .btn-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
+    #mtp .btn{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; border:1px solid var(--mtp-grid); text-decoration:none; font-weight:700; font-size:14px; transition: transform .2s ease; }
+    #mtp .btn:hover{ transform: translateY(-2px); }
+    #mtp .btn.primary{ background:linear-gradient(135deg, rgba(124,156,255,.22), rgba(138,92,255,.18)); }
+    #mtp .mini{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    #mtp .mini .pill{ border:1px solid var(--mtp-grid); background:rgba(255,255,255,.04); border-radius:999px; padding:6px 10px; font-size:12px; color:var(--mtp-muted); }
 
-    /* CONTACT */
-    .form-control{background:transparent;color:inherit;border-radius:12px;}
-    .form-control:focus{border-color: var(--accent-1);box-shadow:0 0 0 0.2rem rgba(13,110,253,.25)}
+    #mtp .hero-media{ position:relative; height: 420px; border-radius:18px; overflow:hidden; border:1px solid var(--mtp-grid); background:linear-gradient(180deg, rgba(124,156,255,.12), rgba(138,92,255,.08)); }
+    #mtp .hero-media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.03); }
+    #mtp .badge{ position:absolute; left:14px; bottom:14px; background:rgba(0,0,0,.45); border:1px solid var(--mtp-grid); padding:8px 10px; border-radius:12px; font-weight:700; font-size:12px; }
 
-    /* FOOTER */
-    footer{padding:2rem;text-align:center;font-size:.9rem;color:#aaa;}
+    /* Particle canvas (decorative) */
+    #mtp .particles{ position:absolute; inset:0; z-index:-1; }
 
-    /* THEME TOGGLE */
-    .theme-toggle{
-      cursor:pointer;
-      border:none;
-      background:none;
-      font-size:1.3rem;
-      margin-left:1rem;
-      color:inherit;
-    }
+    /* Services */
+    #mtp .services{ }
+    #mtp .svc-grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: clamp(14px,1.6vw,20px); }
+    #mtp .svc{ grid-column: span 6; padding:18px; position:relative; overflow:hidden; }
+    #mtp .svc .icon{ width:52px; height:52px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--mtp-grid); background:linear-gradient(135deg, rgba(124,156,255,.18), rgba(138,92,255,.12)); }
+    #mtp .svc h3{ margin:10px 0 4px; font-size:18px; }
+    #mtp .svc p{ color:var(--mtp-muted); font-size:14px; }
+    #mtp .svc::after{ content:""; position:absolute; inset:auto -20% -30% -20%; height:60%; background: radial-gradient(40% 60% at 50% 100%, rgba(124,156,255,.12), transparent 60%); pointer-events:none; }
+    #mtp .svc:hover{ box-shadow: 0 16px 36px rgba(0,0,0,.4); transform: translateY(-2px); }
+    @media (max-width: 900px){ #mtp .svc{ grid-column: span 12; } }
+
+    /* Portfolio */
+    #mtp .portfolio .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: clamp(14px,1.6vw,20px); }
+    #mtp .project{ grid-column: span 4; position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--mtp-grid); background:rgba(255,255,255,.03); }
+    #mtp .project img{ width:100%; height:180px; object-fit:cover; filter: saturate(1.02) contrast(0.98); transition: .35s ease; display:block; }
+    #mtp .project .meta{ padding:14px; }
+    #mtp .project h4{ margin:0 0 4px; font-size:16px; }
+    #mtp .project .desc{ color:var(--mtp-muted); font-size:13px; }
+    #mtp .project .hover{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(4,8,22,.1), rgba(4,8,22,.86)); display:grid; place-items:center; opacity:0; transition:.35s ease; }
+    #mtp .project .hover a{ text-decoration:none; }
+    #mtp .project .view{ padding:10px 14px; border:1px solid var(--mtp-grid); border-radius:12px; font-weight:800; background:linear-gradient(135deg, rgba(124,156,255,.22), rgba(138,92,255,.18)); }
+    #mtp .project:hover img{ transform: scale(1.06); filter: brightness(.72); }
+    #mtp .project:hover .hover{ opacity:1; }
+    @media (max-width: 900px){ #mtp .project{ grid-column: span 6; } }
+    @media (max-width: 580px){ #mtp .project{ grid-column: span 12; } }
+
+    /* About */
+    #mtp .about{ display:grid; grid-template-columns: 1.2fr .8fr; gap: clamp(16px,1.8vw,24px); }
+    #mtp .about .text{ padding:20px; }
+    #mtp .badges{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    #mtp .badge-chip{ padding:7px 10px; border-radius:999px; border:1px solid var(--mtp-grid); background:rgba(255,255,255,.04); font-weight:700; font-size:12px; }
+    #mtp .timeline{ display:grid; gap:12px; }
+    #mtp .tl{ padding:16px; border-radius:12px; border:1px solid var(--mtp-grid); background: linear-gradient(180deg, rgba(124,156,255,.08), rgba(255,255,255,.03)); }
+    #mtp .tl strong{ display:block; font-size:16px; }
+    #mtp .tl span{ color:var(--mtp-muted); font-size:13px; }
+    @media (max-width: 900px){ #mtp .about{ grid-template-columns: 1fr; } }
+
+    /* Contact */
+    #mtp .contact{ display:grid; grid-template-columns: 1fr 1fr; gap: clamp(16px,1.6vw,22px); }
+    #mtp .contact .form-wrap{ padding:18px; }
+    #mtp label{ font-size:12px; color:var(--mtp-muted); }
+    #mtp input, #mtp textarea{ width:100%; padding:12px 12px; border-radius:12px; border:1px solid var(--mtp-grid); background:rgba(8,12,22,.6); color:var(--mtp-text); outline:none; transition:border .2s, box-shadow .2s; }
+    #mtp input:focus, #mtp textarea:focus{ border-color: rgba(124,156,255,.8); box-shadow: 0 0 0 4px rgba(124,156,255,.16); }
+    #mtp textarea{ resize: vertical; min-height:140px; }
+
+    /* Footer block (local) with particles */
+    #mtp .local-footer{ position:relative; border-top:1px solid var(--mtp-grid); padding:26px 0; color:var(--mtp-muted); }
+
+    /* Animations (scroll reveals) */
+    #mtp .reveal{ opacity:0; transform: translateY(14px); transition: all .7s cubic-bezier(.16,.8,.29,1); }
+    #mtp .reveal.visible{ opacity:1; transform: translateY(0); }
+
+    /* Tiny icon style */
+    #mtp .i{ width:18px; height:18px; display:inline-block; vertical-align:-3px; }
   </style>
 </head>
 <body>
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">Tayyab</a>
-      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navmenu"><span class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse justify-content-end" id="navmenu">
-        <ul class="navbar-nav align-items-center gap-2">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-          <li><button id="themeToggle" class="theme-toggle"><i class="bi bi-moon"></i></button></li>
-        </ul>
+
+<div id="mtp">
+  <!-- decorative background particles (hero) -->
+  <canvas class="particles" id="mtpParticlesHero" aria-hidden="true"></canvas>
+
+  <!-- Local Nav (scoped) -->
+  <div class="local-nav">
+    <div class="mtp-container wrap">
+      <div class="brand">
+        <div class="brand-img"><img src="image/IMG-20231229-WA0007.jpg" alt="Muhammad Tayyab" style="width:100%;height:100%;object-fit:cover"></div>
+        <div>
+          <h1>Muhammad Tayyab</h1>
+          <div style="font-size:12px;color:var(--mtp-muted)">WordPress • SMM • Ads</div>
+        </div>
+      </div>
+      <div class="local-links">
+        <a class="chip" href="#hero">Home</a>
+        <a class="chip" href="#services">Services</a>
+        <a class="chip" href="#portfolio">Portfolio</a>
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#contact">Contact</a>
+        <a class="cta" href="#contact">Hire Me</a>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- HERO -->
-  <header id="home" class="hero container">
-    <div>
-      <h1 class="name">Muhammad Tayyab Iftikhar</h1>
-      <div class="tagline">WordPress Developer • SMM • Ads Specialist</div>
-      <p class="mt-3">I design fast, conversion-focused websites and manage social media & ad campaigns for healthcare and SMEs.</p>
-      <div class="mt-4">
-        <a href="#contact" class="btn btn-lg btn-primary me-2">Hire Me</a>
-        <a href="#portfolio" class="btn btn-lg btn-outline-light">See Work</a>
+  <section id="hero" class="mtp-container hero">
+    <div class="glass hero-card reveal">
+      <div class="kicker">Available for freelance & contract</div>
+      <div class="name">Muhammad Tayyab Iftikhar</div>
+      <div class="section-sub">
+        <span>WordPress Web Developer • </span>
+        <span class="typing" id="mtpTyping"></span>
+        <span style="opacity:.6">|</span>
+      </div>
+      <p>
+        I design fast, conversion-focused websites and manage social media & ad campaigns for healthcare and SMEs. I build with modern WordPress workflows, Elementor, and write/blog when needed.
+      </p>
+      <div class="btn-row">
+        <a class="btn primary" href="my-portfolio/MUHAMMAD-Tayyab-Iftikhar-CV.pdf" download>
+          <!-- download icon -->
+          <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+        <a class="btn" href="#portfolio">
+          <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          See Portfolio
+        </a>
+        <a class="btn" href="#contact">
+          <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
+          Get a Quote
+        </a>
+      </div>
+      <div class="mini">
+        <span class="pill">WordPress Development</span>
+        <span class="pill">Social Media Management</span>
+        <span class="pill">Google & Facebook Ads</span>
+        <span class="pill">Daraz Store Creation</span>
       </div>
     </div>
-    <div class="profile-photo">
-      <img src="image/profile.jpg" alt="Profile" style="width:100%;height:100%;object-fit:cover">
+
+    <div class="hero-media glass reveal">
+      <img src="image/profile.jpg" alt="Muhammad Tayyab Iftikhar"/>
+      <div class="badge">HTML • CSS • JS • WordPress</div>
     </div>
-  </header>
+  </section>
 
   <!-- SERVICES -->
-  <section id="services" class="container py-5">
-    <h2 class="fw-bold mb-4 text-center">Services</h2>
-    <div class="row g-4 services-grid">
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 text-center">
-          <div class="service-icon"><i class="bi bi-layout-text-window-reverse"></i></div>
-          <h5 class="mt-2">WordPress Development</h5>
-          <p>Custom themes, Elementor, WooCommerce, speed & SEO basics</p>
+  <section id="services" class="services">
+    <div class="mtp-container">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Services I Offer</div>
+          <div class="section-sub">From building WordPress sites to running ads and managing Daraz stores — end-to-end digital solutions.</div>
         </div>
+        <a class="cta" href="#contact">Request Quote</a>
       </div>
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 text-center">
-          <div class="service-icon"><i class="bi bi-people"></i></div>
-          <h5 class="mt-2">Social Media</h5>
-          <p>Content, scheduling, engagement & growth</p>
+
+      <div class="svc-grid">
+        <div class="svc glass reveal">
+          <div class="icon">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg>
+          </div>
+          <h3>WordPress Development</h3>
+          <p>Custom themes, Elementor, WooCommerce, speed optimization & SEO fundamentals. Full builds, migrations, fixes and maintenance.</p>
         </div>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 text-center">
-          <div class="service-icon"><i class="bi bi-megaphone"></i></div>
-          <h5 class="mt-2">Ads Management</h5>
-          <p>Google Ads, Facebook Ads, ROI-focused optimization</p>
+        <div class="svc glass reveal">
+          <div class="icon">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 1 1-8 0"/><line x1="12" y1="2" x2="12" y2="8"/><line x1="12" y1="14" x2="12" y2="22"/></svg>
+          </div>
+          <h3>Social Media Management</h3>
+          <p>Strategy, content design, scheduling, engagement & analytics reporting (Facebook/Instagram/LinkedIn).</p>
         </div>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 text-center">
-          <div class="service-icon"><i class="bi bi-shop-window"></i></div>
-          <h5 class="mt-2">Daraz Stores</h5>
-          <p>Setup, product uploads, optimization</p>
+        <div class="svc glass reveal">
+          <div class="icon">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6v6h6"/><path d="M8 18V6h6"/></svg>
+          </div>
+          <h3>Google Ads & Facebook Ads</h3>
+          <p>Campaign setup, audience research, conversion tracking and ongoing ROI-focused optimization.</p>
+        </div>
+        <div class="svc glass reveal">
+          <div class="icon">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><rect x="4" y="11" width="16" height="8" rx="2"/></svg>
+          </div>
+          <h3>Daraz Store Creation</h3>
+          <p>Product uploads, store configuration and basic marketing to increase discoverability and sales.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PORTFOLIO -->
-  <section id="portfolio" class="container py-5">
-    <h2 class="fw-bold mb-4 text-center">Portfolio</h2>
-    <div class="row g-4 portfolio-grid">
-      <div class="col-md-6 col-lg-4">
-        <div class="card">
-          <img src="https://s.wordpress.com/mshots/v1/https://dratharhameed.com?w=1200" alt="Dr Athar Hameed" class="w-100">
-          <div class="portfolio-overlay">Clinic Website</div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card">
-          <img src="https://s.wordpress.com/mshots/v1/https://saeekamil.com?w=1200" alt="Sae e Kamil" class="w-100">
-          <div class="portfolio-overlay">Service Website</div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card">
-          <img src="https://s.wordpress.com/mshots/v1/https://accountkeep.com?w=1200" alt="AccountKeep" class="w-100">
-          <div class="portfolio-overlay">Business Website</div>
-        </div>
+  <section id="portfolio" class="portfolio">
+    <div class="mtp-container">
+      <div class="section-title">Selected Projects</div>
+      <div class="section-sub">A few highlights — screenshots, short descriptions and links.</div>
+
+      <div class="grid">
+        <a class="project reveal" href="https://dratharhameed.com/" target="_blank" rel="noopener">
+          <img src="https://s.wordpress.com/mshots/v1/https://dratharhameed.com?w=1200" alt="Dr Athar Hameed"/>
+          <div class="meta">
+            <h4>Dr Athar Hameed — Clinic Website</h4>
+            <div class="desc">Professional medical portfolio & services site — responsive, clean UI and service pages.</div>
+          </div>
+          <div class="hover"><span class="view">View Project</span></div>
+        </a>
+
+        <a class="project reveal" href="https://saeekamil.com/" target="_blank" rel="noopener">
+          <img src="https://s.wordpress.com/mshots/v1/https://saeekamil.com?w=1200" alt="Sae e Kamil"/>
+          <div class="meta">
+            <h4>Sae e Kamil — Website</h4>
+            <div class="desc">Custom layout and content strategy for a service-oriented website.</div>
+          </div>
+          <div class="hover"><span class="view">View Project</span></div>
+        </a>
+
+        <a class="project reveal" href="https://accountkeep.com/" target="_blank" rel="noopener">
+          <img src="https://s.wordpress.com/mshots/v1/https://accountkeep.com?w=1200" alt="AccountKeep"/>
+          <div class="meta">
+            <h4>AccountKeep — Business Website</h4>
+            <div class="desc">Landing page and service pages for accounting & finance solutions.</div>
+          </div>
+          <div class="hover"><span class="view">View Project</span></div>
+        </a>
+
+        <a class="project reveal" href="https://www.virtualmedicalassist.com/" target="_blank" rel="noopener">
+          <img src="https://s.wordpress.com/mshots/v1/https://www.virtualmedicalassist.com?w=1200" alt="Virtual Medical Assist"/>
+          <div class="meta">
+            <h4>Virtual Medical Assist — Corporate Site</h4>
+            <div class="desc">Corporate website for virtual healthcare services — content & structure implementation.</div>
+          </div>
+          <div class="hover"><span class="view">View Project</span></div>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="container py-5">
-    <h2 class="fw-bold mb-4 text-center">About Me</h2>
-    <div class="row g-4 align-items-center">
-      <div class="col-lg-6">
-        <p>I build pixel-accurate WordPress websites, craft social media strategies, and run paid campaigns to help clients get measurable results.</p>
-        <ul class="list-inline">
-          <li class="list-inline-item badge bg-primary">HTML</li>
-          <li class="list-inline-item badge bg-primary">CSS</li>
-          <li class="list-inline-item badge bg-primary">WordPress</li>
-          <li class="list-inline-item badge bg-primary">Google Ads</li>
-          <li class="list-inline-item badge bg-primary">Facebook Ads</li>
-        </ul>
+  <section id="about">
+    <div class="mtp-container about">
+      <div class="glass text reveal">
+        <div class="section-title">About Me</div>
+        <div class="section-sub">Professional — focused on results, speed and clarity.</div>
+        <p style="color:var(--mtp-muted)">I build pixel-accurate WordPress websites, craft social media strategies, and run paid campaigns to help clients get measurable results. My approach pairs technical implementation with marketing-first thinking so websites convert and campaigns scale.</p>
+        <strong>Core Skills</strong>
+        <div class="badges">
+          <span class="badge-chip">HTML</span>
+          <span class="badge-chip">CSS</span>
+          <span class="badge-chip">JS</span>
+          <span class="badge-chip">C++ (OOP & DB)</span>
+          <span class="badge-chip">Python</span>
+          <span class="badge-chip">SQL</span>
+          <span class="badge-chip">WordPress</span>
+          <span class="badge-chip">Elementor</span>
+          <span class="badge-chip">WooCommerce</span>
+          <span class="badge-chip">Google Ads</span>
+          <span class="badge-chip">Facebook Ads</span>
+        </div>
+        <div style="margin-top:12px;color:var(--mtp-muted)"><strong style="color:var(--mtp-text)">Style:</strong> Professional, pragmatic, and conversion-focused. I enjoy simplifying complex problems and shipping results quickly.</div>
+        <div class="btn-row" style="margin-top:12px">
+          <a class="btn" href="my-portfolio/MUHAMMAD-Tayyab-Iftikhar-CV.pdf" download>Download CV</a>
+          <a class="btn primary" href="#contact">Let's Work</a>
+        </div>
       </div>
-      <div class="col-lg-6">
-        <div class="row g-3">
-          <div class="col-6"><div class="stats-card"><h3>20+</h3><p>Websites Built</p></div></div>
-          <div class="col-6"><div class="stats-card"><h3>5+</h3><p>Active Niches</p></div></div>
+
+      <div class="timeline reveal">
+        <div class="tl">
+          <strong>20+ Websites built</strong>
+          <span>Healthcare, SMEs, and service businesses.</span>
+        </div>
+        <div class="tl">
+          <strong>5+ Active niches</strong>
+          <span>Medical, retail, education, services, local brands.</span>
+        </div>
+        <div class="tl">
+          <strong>Approach</strong>
+          <span>Requirements → Contract → Develop → Test/Feedback → Launch → Optimize.</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="container py-5">
-    <h2 class="fw-bold mb-4 text-center">Contact</h2>
-    <div class="row g-4">
-      <div class="col-lg-6">
-        <form action="https://formspree.io/f/mgvllljd" method="POST" class="p-4 rounded" style="background:var(--glass)">
-          <div class="mb-3"><input type="text" name="name" placeholder="Name" class="form-control" required></div>
-          <div class="mb-3"><input type="email" name="email" placeholder="Email" class="form-control" required></div>
-          <div class="mb-3"><textarea name="message" rows="5" placeholder="Message" class="form-control" required></textarea></div>
-          <button class="btn btn-primary w-100">Send Message</button>
+  <section id="contact">
+    <div class="mtp-container contact">
+      <div class="glass form-wrap reveal">
+        <div class="section-title">Get in touch</div>
+        <div class="section-sub">Send a message — I'll reply on WhatsApp or email.</div>
+        <form action="https://formspree.io/f/mgvllljd" method="POST">
+          <input type="hidden" name="_next" value="my-profile/thankyou.html">
+          <label>Full name</label>
+          <input name="name" required>
+          <div style="height:10px"></div>
+          <label>Email</label>
+          <input name="email" type="email" required>
+          <div style="height:10px"></div>
+          <label>Message</label>
+          <textarea name="message" rows="5" required></textarea>
+          <div class="btn-row" style="margin-top:12px">
+            <button class="btn primary" type="submit">Send Message</button>
+            <a class="btn" href="mailto:abidaparveen0124@gmail.com">Email Direct</a>
+          </div>
         </form>
-      </div>
-      <div class="col-lg-6">
-        <div class="p-4 rounded" style="background:var(--glass)">
-          <p><i class="bi bi-whatsapp"></i> WhatsApp: <a href="https://wa.me/923458368083" target="_blank">+92 345 8368083</a></p>
-          <p><i class="bi bi-envelope"></i> Email: <a href="mailto:abidaparveen0124@gmail.com">abidaparveen0124@gmail.com</a></p>
-          <p><i class="bi bi-linkedin"></i> <a href="https://www.linkedin.com/in/muhammad-tayyab-iftikhar-a88786284/" target="_blank">LinkedIn</a></p>
+        <div class="btn-row" style="margin-top:10px">
+          <a class="btn" href="https://wa.me/923458368083" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn" href="https://www.linkedin.com/in/muhammad-tayyab-iftikhar-a88786284/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
+      </div>
+      <div class="glass reveal" style="padding:18px">
+        <div class="section-title">Contact Info</div>
+        <div class="section-sub">Quick ways to reach me</div>
+        <ul style="list-style:none;padding:0;margin:0;color:var(--mtp-muted);font-size:14px">
+          <li style="margin-bottom:8px">WhatsApp: <a href="https://wa.me/923458368083" target="_blank" rel="noopener">+92 345 8368083</a></li>
+          <li style="margin-bottom:8px">Email: <a href="mailto:abidaparveen0124@gmail.com">abidaparveen0124@gmail.com</a></li>
+          <li style="margin-bottom:8px">LinkedIn: <a href="https://www.linkedin.com/in/muhammad-tayyab-iftikhar-a88786284/" target="_blank" rel="noopener">Muhammad Tayyab Iftikhar</a></li>
+        </ul>
+        <div style="margin-top:10px"><small style="color:var(--mtp-muted)">Available for freelance & contract work. Typical response: within 24 hours via WhatsApp/email.</small></div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    © <span id="year"></span> Muhammad Tayyab Iftikhar — Portfolio
-  </footer>
+  <!-- Local Footer with particles -->
+  <div class="local-footer">
+    <canvas class="particles" id="mtpParticlesFoot" aria-hidden="true"></canvas>
+    <div class="mtp-container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>
+        <strong>Muhammad Tayyab Iftikhar</strong>
+        <div style="color:var(--mtp-muted);font-size:13px">WordPress • SMM • Ads</div>
+      </div>
+      <div style="color:var(--mtp-muted);font-size:13px">© <span id="mtpYear"></span> — Designed for mobile & desktop</div>
+    </div>
+  </div>
+</div>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    document.getElementById('year').innerText = new Date().getFullYear();
-    const toggleBtn = document.getElementById('themeToggle');
-    toggleBtn.addEventListener('click',()=>{
-      document.body.classList.toggle('light');
-      toggleBtn.innerHTML = document.body.classList.contains('light') ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+<script>
+  // Utilities
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => Array.from(root.querySelectorAll(s));
+
+  // Year
+  $('#mtpYear').textContent = new Date().getFullYear();
+
+  // Typing effect
+  const mtpPhrases = ['Social Media Manager','Blog Writer','Ads Specialist','Daraz Store Creator'];
+  let tI=0, cI=0, forward=true; const tEl = $('#mtpTyping');
+  (function loop(){ const cur = mtpPhrases[tI]; if(forward){ cI++; } else { cI--; }
+    tEl.textContent = cur.slice(0,cI);
+    if(forward && cI===cur.length){ forward=false; setTimeout(loop,1100); return; }
+    if(!forward && cI===0){ forward=true; tI=(tI+1)%mtpPhrases.length; }
+    setTimeout(loop, 80);
+  })();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+  },{threshold:.16});
+  $$('.reveal').forEach(el=> io.observe(el));
+
+  // Smooth local anchor navigation (within #mtp)
+  $$('.local-links a, a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const id = a.getAttribute('href');
+      if(id && id.startsWith('#')){ e.preventDefault(); const target = $(id);
+        if(target){ window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 64, behavior:'smooth' }); }
+      }
     });
-  </script>
+  });
+
+  // Minimal particle system (two canvases)
+  function particles(canvasId){
+    const c = document.getElementById(canvasId); if(!c) return; const ctx = c.getContext('2d');
+    const DPR = Math.max(1, window.devicePixelRatio || 1);
+    let w,h, pts=[];
+    function resize(){ w = c.clientWidth; h = c.clientHeight; c.width = w*DPR; c.height = h*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+    function init(){ pts = []; const count = Math.round((w*h)/22000); for(let i=0;i<count;i++){
+        pts.push({ x: Math.random()*w, y: Math.random()*h, vx: (Math.random()-.5)*.4, vy:(Math.random()-.5)*.4, r: 1+Math.random()*1.6 });
+      } }
+    function step(){ ctx.clearRect(0,0,w,h);
+      for(const p of pts){ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>w) p.vx*=-1; if(p.y<0||p.y>h) p.vy*=-1; }
+      // draw
+      ctx.fillStyle = 'rgba(255,255,255,.7)';
+      for(const p of pts){ ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); }
+      // lines
+      for(let i=0;i<pts.length;i++){
+        for(let j=i+1;j<pts.length;j++){
+          const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y; const d= Math.hypot(dx,dy);
+          if(d<110){ ctx.strokeStyle = 'rgba(124,156,255,' + (1 - d/110) * .22 + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); }
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    function onResize(){ resize(); init(); }
+    const ro = new ResizeObserver(onResize); ro.observe(c);
+    onResize(); step();
+  }
+  particles('mtpParticlesHero');
+  particles('mtpParticlesFoot');
+</script>
+
 </body>
 </html>
