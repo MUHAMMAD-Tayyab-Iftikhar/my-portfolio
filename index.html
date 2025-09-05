@@ -6,154 +6,199 @@
 <title>Muhammad Tayyab Iftikhar — Portfolio</title>
 <meta name="description" content="Muhammad Tayyab Iftikhar — WordPress Web Developer, Social Media Manager & Blog Writer. Portfolio & contact." />
 
-<!-- Bootstrap -->
+<!-- Bootstrap 5 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-<!-- Icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"/>
 
 <style>
-:root{
-  --accent: #0d6efd;
-  --accent2: #6f42c1;
-  --muted: #9ca3af;
-  --bg: #0a0f1f;
-}
-html,body{
-  background: var(--bg);
-  font-family: 'Inter', sans-serif;
-  color: #e5e7eb;
-  scroll-behavior:smooth;
-}
+  :root{
+    --bg:#070914;
+    --card: rgba(255,255,255,0.035);
+    --glass: rgba(255,255,255,0.04);
+    --muted: #9aa4b2;
+    --accent1: #0d6efd;
+    --accent2: #6f42c1;
+    --glass-border: rgba(255,255,255,0.04);
+    --ease: cubic-bezier(.16,.8,.29,1);
+  }
 
-/* NAV */
-.navbar{
-  background: rgba(15,23,36,0.7);
-  backdrop-filter: blur(12px);
-}
-.nav-link{ color:#cfd7e3; font-weight:500; }
-.nav-link:hover{ color:#fff; }
+  html,body{
+    height:100%;
+    background: linear-gradient(180deg,#04050a 0%, var(--bg) 100%);
+    color: #e9eef8;
+    font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased;
+    scroll-behavior:smooth;
+  }
 
-/* HERO */
-.hero{
-  position: relative;
-  min-height: 90vh;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:4rem 1.5rem;
-  overflow:hidden;
-}
-.hero::before, .hero::after{
-  content:"";
-  position:absolute;
-  width:380px; height:380px;
-  border-radius:50%;
-  filter: blur(120px);
-  opacity:0.4;
-  z-index:0;
-}
-.hero::before{ background:#0d6efd; top:-60px; left:-120px; }
-.hero::after{ background:#6f42c1; bottom:-120px; right:-80px; }
-.hero-content{
-  position:relative; z-index:2; max-width:600px;
-}
-.hero h1{
-  font-size:2.8rem;
-  font-weight:800;
-  background:linear-gradient(90deg,#0d6efd,#6f42c1);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.hero p{ color:var(--muted); font-size:1.05rem; margin:1rem 0; }
-.hero-buttons .btn{ margin-right:.6rem; }
+  /* -----------------------
+     NAV
+     ----------------------- */
+  .navbar{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--glass-border);
+  }
+  .navbar-brand { font-weight:800; letter-spacing: -0.02em; color:#fff; }
+  .nav-link{ color: #cfe6ff; font-weight:600; }
+  .nav-link:hover{ color: #fff; }
 
-/* Services */
-.section-title{
-  font-weight:800;
-  font-size:1.4rem;
-  margin-bottom:.5rem;
-}
-.section-sub{ color:var(--muted); margin-bottom:2rem; }
-.service-card{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.05);
-  padding:1.5rem;
-  border-radius:16px;
-  transition:.3s;
-}
-.service-card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 16px 32px rgba(0,0,0,0.5);
-}
-.service-icon{
-  width:56px; height:56px;
-  display:flex; align-items:center; justify-content:center;
-  border-radius:14px;
-  background:linear-gradient(135deg,rgba(13,110,253,0.3),rgba(111,66,193,0.2));
-  font-size:1.5rem;
-  margin-bottom:1rem;
-}
+  /* -----------------------
+     HERO
+     ----------------------- */
+  .hero {
+    position:relative;
+    min-height:92vh;
+    display:grid;
+    grid-template-columns: 1fr 420px;
+    gap: 2.5rem;
+    align-items:center;
+    padding:4rem 1.25rem;
+    overflow:visible;
+  }
+  @media(max-width: 992px){ .hero{ grid-template-columns:1fr; padding:3rem 1rem; } }
 
-/* Portfolio */
-.portfolio-item{
-  position:relative; overflow:hidden; border-radius:12px;
-}
-.portfolio-item img{ width:100%; height:200px; object-fit:cover; transition:.4s; }
-.portfolio-item:hover img{ transform:scale(1.08); }
-.portfolio-overlay{
-  position:absolute; inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
-  display:flex; flex-direction:column; justify-content:flex-end;
-  padding:1rem;
-  opacity:0; transition:.4s;
-}
-.portfolio-item:hover .portfolio-overlay{ opacity:1; }
+  /* animated gradient orbs */
+  .orb{
+    position:absolute; width:420px; height:420px; border-radius:50%; filter: blur(120px); opacity:0.55; z-index:0;
+    animation: floaty 12s linear infinite;
+    mix-blend-mode: screen;
+  }
+  .orb.orb-a{ left:-120px; top:-80px; background: radial-gradient(circle at 30% 30%, var(--accent1), transparent 40%); animation-duration:14s; }
+  .orb.orb-b{ right:-90px; bottom:-110px; background: radial-gradient(circle at 60% 60%, var(--accent2), transparent 35%); animation-duration:18s; }
+  @keyframes floaty { 0%{ transform: translateY(0) translateX(0) } 50%{ transform: translateY(18px) translateX(10px) } 100%{ transform: translateY(0) translateX(0) } }
 
-/* About */
-.timeline{
-  border-left:2px solid rgba(255,255,255,0.1);
-  padding-left:1.5rem;
-}
-.timeline-item{
-  margin-bottom:1.5rem;
-  position:relative;
-}
-.timeline-item::before{
-  content:"";
-  position:absolute; left:-10px; top:6px;
-  width:12px; height:12px; border-radius:50%;
-  background:linear-gradient(90deg,#0d6efd,#6f42c1);
-}
-.metric{
-  font-size:2rem; font-weight:800; color:#fff;
-}
-.metric-label{ color:var(--muted); }
+  .hero-card{
+    position:relative; z-index:2;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:18px; padding:2.25rem; border:1px solid var(--glass-border);
+    box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+  }
+  .hero h1{
+    font-size:2.55rem; margin:0 0 .6rem; font-weight:900;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    display:inline-block;
+    animation: glowText 6s linear infinite;
+  }
+  @keyframes glowText {
+    0%{ filter: hue-rotate(0deg) }
+    50%{ filter: hue-rotate(18deg) }
+    100%{ filter: hue-rotate(0deg) }
+  }
 
-/* Contact */
-.contact-card{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.05);
-  padding:2rem; border-radius:14px;
-}
-.contact-card input,.contact-card textarea{
-  background:rgba(255,255,255,0.05)!important;
-  border:none; color:#fff;
-}
-.contact-card input:focus,.contact-card textarea:focus{
-  box-shadow:0 0 0 2px var(--accent);
-}
+  .role-typing{ color: var(--accent2); font-weight:700; margin-left:.4rem; }
+  .hero p{ color:var(--muted); margin-top:1rem; font-size:1.02rem; line-height:1.5; }
 
-/* Footer */
-footer{
-  margin-top:4rem;
-  padding:2rem 0;
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,0.05);
-  font-size:.9rem;
-  color:var(--muted);
-}
+  .ctas .btn{ padding: .7rem 1.1rem; border-radius:12px; font-weight:700; }
+  .social-pills a{ display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .65rem; background: rgba(255,255,255,0.02); border-radius:999px; border:1px solid var(--glass-border); color:#dbeaff; margin-right:.5rem; text-decoration:none; }
+
+  /* profile card */
+  .profile-card{ border-radius:16px; padding: .6rem; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid var(--glass-border); box-shadow: 0 18px 40px rgba(2,6,18,0.6); position:relative; overflow:hidden; }
+  .profile-photo{ width:100%; height:420px; border-radius:12px; overflow:hidden; position:relative; display:block; }
+  .profile-photo img{ width:100%; height:100%; object-fit:cover; transform: scale(1.03); transition: transform .7s var(--ease); display:block; }
+  .profile-card:hover .profile-photo img{ transform: scale(1.08) rotate(-0.6deg); }
+  .skill-pill{ position:absolute; left:18px; bottom:18px; background:rgba(0,0,0,0.45); padding:.5rem .8rem; border-radius:999px; border:1px solid var(--glass-border); font-weight:700; color:#fff; font-size:.92rem; }
+
+  /* -----------------------
+     SECTIONS general
+     ----------------------- */
+  section{ padding:4.25rem 1.25rem; position:relative; }
+  .container-narrow{ max-width:1140px; margin:0 auto; }
+
+  .section-head{ display:flex; justify-content:space-between; align-items:end; gap:1rem; margin-bottom:1.25rem; }
+  .section-title{ font-weight:800; font-size:1.2rem; margin:0; color:#fff; }
+  .section-sub{ color:var(--muted); margin-top:.35rem; font-size:.95rem; }
+
+  /* reveal animation helper */
+  .reveal{ opacity:0; transform: translateY(18px) scale(.995); transition: opacity .7s var(--ease), transform .7s var(--ease); will-change: transform, opacity; }
+  .reveal.visible{ opacity:1; transform: translateY(0) scale(1); }
+
+  /* -----------------------
+     SERVICES
+     ----------------------- */
+  .services-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:1rem; }
+  @media(max-width:1200px){ .services-grid{ grid-template-columns: repeat(2,1fr);} }
+  @media(max-width:576px){ .services-grid{ grid-template-columns:1fr; } }
+
+  .service{
+    background:var(--card); border-radius:14px; padding:1.4rem; border:1px solid var(--glass-border);
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+    display:flex; gap:1rem; align-items:flex-start;
+  }
+  .service:hover{ transform: translateY(-8px); box-shadow: 0 18px 40px rgba(2,6,18,0.6); }
+  .service-icon{
+    width:56px; height:56px; border-radius:12px; display:grid; place-items:center;
+    background:linear-gradient(135deg, rgba(13,110,253,0.14), rgba(111,66,193,0.08)); border:1px solid var(--glass-border); font-size:1.35rem;
+  }
+  .service h5{ margin:0 0 .2rem; font-weight:700; }
+  .service p{ margin:0; color:var(--muted); font-size:.95rem; }
+
+  /* -----------------------
+     PORTFOLIO
+     ----------------------- */
+  .filters{ display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1rem; }
+  .filter-btn{ padding:.45rem .8rem; border-radius:999px; background: rgba(255,255,255,0.02); border:1px solid var(--glass-border); color: #dbeaff; cursor:pointer; font-weight:600; }
+  .filter-btn.active{ background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#fff; box-shadow:0 8px 30px rgba(13,110,253,0.08); }
+
+  .portfolio-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; }
+  @media(max-width:1200px){ .portfolio-grid{ grid-template-columns: repeat(2,1fr);} }
+  @media(max-width:768px){ .portfolio-grid{ grid-template-columns:1fr; } }
+
+  .proj{
+    position:relative; overflow:hidden; border-radius:12px; cursor:pointer; border:1px solid var(--glass-border);
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .proj img{ width:100%; height:220px; object-fit:cover; display:block; transition: transform .6s var(--ease); }
+  .proj:hover img{ transform: scale(1.06); }
+  .proj-info{
+    position:absolute; left:0; right:0; bottom:0; padding:1rem;
+    background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.15) 60%);
+    transform: translateY(100%); transition: transform .35s var(--ease);
+  }
+  .proj:hover .proj-info{ transform: translateY(0%); }
+  .proj h5{ margin:0; font-weight:800; color:#fff; }
+  .proj small{ color:var(--muted); }
+
+  /* hidden filtered card */
+  .proj.hidden{ opacity:0; transform: scale(.98) translateY(10px); pointer-events:none; height:0; margin:0; padding:0; transition: all .35s var(--ease); }
+
+  /* -----------------------
+     ABOUT + EDUCATION
+     ----------------------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 360px; gap:2rem; align-items:start; }
+  @media(max-width:992px){ .about-grid{ grid-template-columns:1fr; } }
+  .about p{ color:var(--muted); line-height:1.6; }
+  .edu-card{ background:var(--card); border-radius:12px; padding:1rem; border:1px solid var(--glass-border); margin-bottom:.8rem; }
+  .edu-year{ color:var(--muted); font-size:.9rem; }
+  .cgpa-pill{ display:inline-block; padding:.35rem .6rem; border-radius:10px; background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#fff; font-weight:700; margin-left:.6rem; font-size:.9rem;}
+
+  /* -----------------------
+     METRICS
+     ----------------------- */
+  .metrics{ display:flex; gap:1rem; flex-wrap:wrap; }
+  .metric-box{ background:var(--card); border:1px solid var(--glass-border); border-radius:12px; padding:1rem; text-align:center; flex:1 1 140px; }
+  .metric-num{ font-weight:900; font-size:1.6rem; color:#fff; }
+  .metric-label{ color:var(--muted); font-size:.95rem; }
+
+  /* -----------------------
+     CONTACT & FOOTER
+     ----------------------- */
+  .contact-card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:1.25rem; border-radius:12px; border:1px solid var(--glass-border); }
+  .form-control{ background: rgba(255,255,255,0.03); border:none; color:#fff; border-radius:10px; padding:.8rem 1rem; }
+  .form-control::placeholder{ color: #8893a0; }
+  .form-control:focus{ box-shadow:0 0 0 4px rgba(13,110,253,0.08); outline:none; }
+
+  footer{ border-top:1px solid var(--glass-border); padding:2rem 1.25rem; color:var(--muted); text-align:center; }
+
+  /* small helpers */
+  a{ color:inherit; }
+  .muted{ color:var(--muted); }
+
+  /* accessibility focus */
+  .filter-btn:focus, .btn:focus, .nav-link:focus{ outline: 3px solid rgba(13,110,253,0.08); outline-offset:3px; }
+
 </style>
 </head>
 <body>
@@ -161,17 +206,30 @@ footer{
 <!-- NAV -->
 <nav class="navbar navbar-expand-lg sticky-top">
   <div class="container">
-    <a class="navbar-brand text-white fw-bold" href="#">M. Tayyab</a>
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <div style="width:44px;height:44px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)">
+        <!-- replace with small logo or avatar -->
+        <img src="image/IMG-20231229-WA0007.jpg" alt="logo" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div>
+        <div style="font-weight:800;color:#fff">Muhammad Tayyab</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:-2px">Dev • SMM</div>
+      </div>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="menu">
-      <ul class="navbar-nav gap-3">
+
+    <div class="collapse navbar-collapse justify-content-end" id="navmenu">
+      <ul class="navbar-nav align-items-center">
         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item ms-3"><a class="btn btn-sm btn-outline-light" href="#contact">Hire Me</a></li>
       </ul>
     </div>
   </div>
@@ -179,151 +237,506 @@ footer{
 
 <!-- HERO -->
 <header id="home" class="hero container">
-  <div class="hero-content">
-    <h1>Muhammad Tayyab Iftikhar</h1>
-    <p>WordPress Developer • Social Media Manager • Ads Specialist</p>
-    <div class="hero-buttons">
-      <a href="#portfolio" class="btn btn-primary btn-lg">See My Work</a>
-      <a href="#contact" class="btn btn-outline-light btn-lg">Hire Me</a>
+  <!-- decorative orbs -->
+  <div class="orb orb-a" aria-hidden="true"></div>
+  <div class="orb orb-b" aria-hidden="true"></div>
+
+  <div class="hero-card reveal">
+    <div class="d-flex justify-content-between align-items-start gap-3">
+      <div>
+        <h1>Muhammad Tayyab Iftikhar</h1>
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+          <div class="muted">WordPress Developer •</div>
+          <div class="muted">Social Media Manager •</div>
+          <div class="role-typing" id="typingRole">Ads Specialist</div>
+        </div>
+      </div>
+      <div class="text-end d-none d-md-block">
+        <a class="btn btn-sm btn-light" href="my-portfolio/MUHAMMAD-Tayyab-Iftikhar-CV.pdf" download>
+          <i class="bi bi-download"></i> Resume
+        </a>
+      </div>
+    </div>
+
+    <p style="margin-top:1rem;">
+      I design fast, conversion-focused websites and run social & ads campaigns for healthcare and small businesses.
+      I build with modern WordPress workflows (Elementor + WooCommerce) and write content that converts.
+    </p>
+
+    <div class="d-flex flex-wrap align-items-center gap-2 mt-3 social-pills">
+      <a href="mailto:abidaparveen0124@gmail.com" title="Email"><i class="bi bi-envelope"></i> abidaparveen0124@gmail.com</a>
+      <a href="https://wa.me/923458368083" target="_blank" rel="noopener" title="WhatsApp"><i class="bi bi-whatsapp"></i> +92 345 8368083</a>
+      <a href="https://www.linkedin.com/in/muhammad-tayyab-iftikhar-a88786284/" target="_blank" rel="noopener" title="LinkedIn"><i class="bi bi-linkedin"></i> LinkedIn</a>
+    </div>
+
+    <div class="mt-4 ctas">
+      <a class="btn btn-lg btn-gradient" href="#portfolio" style="background:linear-gradient(90deg,var(--accent1),var(--accent2));border:none;color:#fff">See Portfolio</a>
+      <a class="btn btn-lg btn-outline-light" href="#contact">Get a Quote</a>
+    </div>
+
+    <div style="margin-top:1rem;color:var(--muted);font-size:.92rem;">
+      <strong>Key services:</strong> WordPress Development · Social Media Management · Google Ads · Facebook Ads · Daraz Store Setup
     </div>
   </div>
-  <div style="max-width:360px;position:relative;z-index:2;">
-    <img src="image/profile.jpg" class="img-fluid rounded-4 shadow-lg" alt="Profile">
-  </div>
+
+  <!-- Profile card (right) -->
+  <aside class="profile-card reveal">
+    <div class="profile-photo">
+      <!-- replace image/profile.jpg with your best, high-res photo -->
+      <img src="image/profile.jpg" alt="Muhammad Tayyab Iftikhar — profile photo">
+    </div>
+    <div class="skill-pill">HTML • CSS • JS • WordPress</div>
+  </aside>
 </header>
 
 <!-- SERVICES -->
-<section id="services" class="container py-5">
-  <div class="text-center mb-5">
-    <div class="section-title">Services I Offer</div>
-    <div class="section-sub">From websites to ads — complete digital solutions.</div>
-  </div>
-  <div class="row g-4">
-    <div class="col-md-6 col-lg-3">
-      <div class="service-card text-center h-100">
-        <div class="service-icon"><i class="bi bi-window"></i></div>
-        <h5>WordPress Development</h5>
-        <p class="text-muted">Custom themes, WooCommerce, Elementor & SEO-ready sites.</p>
+<section id="services" class="reveal">
+  <div class="container container-narrow">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Services I offer</h2>
+        <div class="section-sub">End-to-end digital solutions — design, build, launch & optimize.</div>
+      </div>
+      <div>
+        <a class="btn btn-sm btn-outline-light" href="#contact">Request Quote</a>
       </div>
     </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="service-card text-center h-100">
+
+    <div class="services-grid">
+      <div class="service reveal">
+        <div class="service-icon"><i class="bi bi-layout-text-window-reverse"></i></div>
+        <div>
+          <h5>WordPress Development</h5>
+          <p>Custom themes, Elementor pages, WooCommerce stores, speed & on-page SEO basics.</p>
+        </div>
+      </div>
+
+      <div class="service reveal">
         <div class="service-icon"><i class="bi bi-people"></i></div>
-        <h5>Social Media Management</h5>
-        <p class="text-muted">Content, scheduling, growth & engagement strategy.</p>
+        <div>
+          <h5>Social Media Management</h5>
+          <p>Content strategy, post design, scheduling, community growth and monthly reporting.</p>
+        </div>
       </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="service-card text-center h-100">
-        <div class="service-icon"><i class="bi bi-bullseye"></i></div>
-        <h5>Google & FB Ads</h5>
-        <p class="text-muted">Setup, optimization & conversion-focused campaigns.</p>
+
+      <div class="service reveal">
+        <div class="service-icon"><i class="bi bi-megaphone"></i></div>
+        <div>
+          <h5>Google & Facebook Ads</h5>
+          <p>Campaign setup, conversion tracking, audience research and ROI-focused optimisation.</p>
+        </div>
       </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="service-card text-center h-100">
+
+      <div class="service reveal">
         <div class="service-icon"><i class="bi bi-shop"></i></div>
-        <h5>Daraz Store Creation</h5>
-        <p class="text-muted">Product uploads, store setup & discoverability boost.</p>
+        <div>
+          <h5>Daraz Store Creation</h5>
+          <p>Listings, store configuration and basic marketplace marketing to increase discoverability.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PORTFOLIO -->
-<section id="portfolio" class="container py-5">
-  <div class="text-center mb-5">
-    <div class="section-title">Portfolio</div>
-    <div class="section-sub">Selected projects I’ve worked on.</div>
-  </div>
-  <div class="row g-4">
-    <div class="col-md-6 col-lg-4">
-      <div class="portfolio-item">
-        <img src="https://s.wordpress.com/mshots/v1/https://dratharhameed.com?w=1200" alt="">
-        <div class="portfolio-overlay">
-          <h5>Clinic Website</h5>
-          <small>Modern healthcare site with clean UI.</small>
-        </div>
+<section id="portfolio" class="reveal">
+  <div class="container container-narrow">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Selected Projects</h2>
+        <div class="section-sub">Click any project to view details. Replace or add projects easily — instructions in comments below.</div>
+      </div>
+      <div class="filters" role="tablist" aria-label="Portfolio filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="web">Websites</button>
+        <button class="filter-btn" data-filter="ecom">E-Commerce</button>
+        <button class="filter-btn" data-filter="health">Healthcare</button>
+        <button class="filter-btn" data-filter="corp">Corporate</button>
       </div>
     </div>
-    <div class="col-md-6 col-lg-4">
-      <div class="portfolio-item">
-        <img src="https://s.wordpress.com/mshots/v1/https://saeekamil.com?w=1200" alt="">
-        <div class="portfolio-overlay">
-          <h5>Service Website</h5>
-          <small>Custom layout and branding strategy.</small>
+
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- Project 1 (Clinic) -->
+      <article class="proj" tabindex="0" role="button"
+               data-category="health"
+               data-img="https://s.wordpress.com/mshots/v1/https://dratharhameed.com?w=1200"
+               data-title="Dr Athar Hameed — Clinic Website"
+               data-desc="Professional medical portfolio & service pages. Responsive layout and SEO-oriented structure."
+               data-link="https://dratharhameed.com/">
+        <img src="https://s.wordpress.com/mshots/v1/https://dratharhameed.com?w=1200" alt="Dr Athar Hameed — Clinic">
+        <div class="proj-info">
+          <h5>Dr Athar Hameed</h5>
+          <small class="muted">Clinic website — healthcare</small>
         </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4">
-      <div class="portfolio-item">
-        <img src="https://s.wordpress.com/mshots/v1/https://accountkeep.com?w=1200" alt="">
-        <div class="portfolio-overlay">
-          <h5>Business Website</h5>
-          <small>Finance solutions with responsive UI.</small>
+      </article>
+
+      <!-- Project 2 (Sae e Kamil) -->
+      <article class="proj" tabindex="0" role="button"
+               data-category="corp"
+               data-img="https://s.wordpress.com/mshots/v1/https://saeekamil.com?w=1200"
+               data-title="Sae e Kamil — Service Website"
+               data-desc="Custom layout and content strategy for a service-oriented website."
+               data-link="https://saeekamil.com/">
+        <img src="https://s.wordpress.com/mshots/v1/https://saeekamil.com?w=1200" alt="Sae e Kamil">
+        <div class="proj-info">
+          <h5>Sae e Kamil</h5>
+          <small class="muted">Service website — branding & layout</small>
         </div>
-      </div>
+      </article>
+
+      <!-- Project 3 (AccountKeep) -->
+      <article class="proj" tabindex="0" role="button"
+               data-category="web"
+               data-img="https://s.wordpress.com/mshots/v1/https://accountkeep.com?w=1200"
+               data-title="AccountKeep — Business Website"
+               data-desc="Landing and service pages for accounting & finance solutions."
+               data-link="https://accountkeep.com/">
+        <img src="https://s.wordpress.com/mshots/v1/https://accountkeep.com?w=1200" alt="AccountKeep">
+        <div class="proj-info">
+          <h5>AccountKeep</h5>
+          <small class="muted">Business website — responsive UI</small>
+        </div>
+      </article>
+
+      <!-- Project 4 (Virtual Medical Assist) -->
+      <article class="proj" tabindex="0" role="button"
+               data-category="health"
+               data-img="https://s.wordpress.com/mshots/v1/https://www.virtualmedicalassist.com?w=1200"
+               data-title="Virtual Medical Assist — Corporate"
+               data-desc="Corporate site for virtual healthcare services — content & structure implementation."
+               data-link="https://www.virtualmedicalassist.com/">
+        <img src="https://s.wordpress.com/mshots/v1/https://www.virtualmedicalassist.com?w=1200" alt="Virtual Medical Assist">
+        <div class="proj-info">
+          <h5>Virtual Medical Assist</h5>
+          <small class="muted">Corporate healthcare site</small>
+        </div>
+      </article>
+
+      <!-- Project 5 (Placeholder - replace) -->
+      <article class="proj" tabindex="0" role="button"
+               data-category="web"
+               data-img="image/placeholder-1.jpg"
+               data-title="Project — Replace me"
+               data-desc="Add your project's title, description, link & skills using the data-* attributes on this card."
+               data-link="#">
+        <img src="image/placeholder-1.jpg" alt="Placeholder project">
+        <div class="proj-info">
+          <h5>Project — Replace</h5>
+          <small class="muted">Replace this with your real project</small>
+        </div>
+      </article>
+
+      <!-- Project 6 (Placeholder - replace) -->
+      <article class="proj" tabindex="0" role="button"
+               data-category="ecom"
+               data-img="image/placeholder-2.jpg"
+               data-title="E-Commerce — Replace me"
+               data-desc="An e-commerce or marketplace project can go here. Update the image & link."
+               data-link="#">
+        <img src="image/placeholder-2.jpg" alt="Placeholder project">
+        <div class="proj-info">
+          <h5>E-Commerce — Replace</h5>
+          <small class="muted">Placeholder — update with your project</small>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="container py-5">
-  <div class="row g-4">
-    <div class="col-lg-6">
-      <h3 class="section-title">About Me</h3>
-      <p class="text-muted">I build WordPress websites and run campaigns that focus on conversions and measurable growth. I mix technical skills with a marketing mindset.</p>
-      <div class="timeline">
-        <div class="timeline-item"><strong>2019:</strong> Started freelancing in web dev</div>
-        <div class="timeline-item"><strong>2021:</strong> Expanded into social media</div>
-        <div class="timeline-item"><strong>2023:</strong> Running ads for healthcare & SMEs</div>
+<!-- PROJECT MODAL (Bootstrap) -->
+<div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background: linear-gradient(180deg, rgba(10,12,20,0.95), rgba(8,10,18,0.95)); border:1px solid var(--glass-border); color:#fff">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="projectModalTitle">Project title</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-md-7">
+            <img id="projectModalImg" src="" alt="" style="width:100%; border-radius:10px; object-fit:cover; max-height:520px;">
+          </div>
+          <div class="col-md-5">
+            <h6 class="muted">Overview</h6>
+            <p id="projectModalDesc" class="muted"></p>
+            <div id="projectModalSkills" style="margin-bottom:1rem;"></div>
+            <a id="projectModalLink" class="btn btn-outline-light" target="_blank" rel="noopener">Visit Project</a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="row g-4">
-        <div class="col-6 text-center">
-          <div class="metric">20+</div>
-          <div class="metric-label">Websites Built</div>
-        </div>
-        <div class="col-6 text-center">
-          <div class="metric">5+</div>
-          <div class="metric-label">Active Niches</div>
+  </div>
+</div>
+
+<!-- ABOUT & EDUCATION -->
+<section id="about" class="reveal">
+  <div class="container container-narrow">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">About Me</h2>
+        <div class="section-sub">Professional approach: pragmatic, conversion-focused, and fast shipping.</div>
+      </div>
+      <div></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about">
+        <p>
+          I build pixel-accurate WordPress sites, craft social media strategies, and manage ad campaigns that
+          drive measurable results. I combine technical implementation with marketing-first thinking so websites convert and campaigns scale.
+          I prefer clean code, fast load times and clear communication with clients.
+        </p>
+
+        <div class="mt-4 metrics">
+          <div class="metric-box">
+            <div class="metric-num counter" data-target="20">0</div>
+            <div class="metric-label">Websites built</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-num counter" data-target="5">0</div>
+            <div class="metric-label">Active niches</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-num counter" data-target="100">0</div>
+            <div class="metric-label">Satisfied clients (est.)</div>
+          </div>
         </div>
       </div>
+
+      <aside id="education" class="reveal">
+        <h5 class="section-title">Education</h5>
+
+        <div class="edu-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+            <div>
+              <strong>BSc — Software Engineering</strong>
+              <div class="muted">Lahore Garrison University (LGU), Lahore</div>
+            </div>
+            <div class="edu-year">2022 – Expected 2026</div>
+          </div>
+          <div style="margin-top:.6rem;color:var(--muted)">Current CGPA: <span class="cgpa-pill">3.20 (7th Semester)</span></div>
+        </div>
+
+        <div class="edu-card">
+          <strong>Intermediate (Pre-Engineering)</strong>
+          <div class="muted">APS Garrison Degree College, Quetta Cantt</div>
+        </div>
+
+        <div class="edu-card">
+          <strong>Matriculation</strong>
+          <div class="muted">Alma Mater Grammar High School & College, Shaheenabad, Sargodh</div>
+        </div>
+
+        <div style="margin-top:.6rem;color:var(--muted); font-size:.95rem">
+          <strong>Style:</strong> Professional, pragmatic, conversion-first. I simplify complex problems and ship results fast.
+        </div>
+      </aside>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="container py-5">
-  <div class="row g-4">
-    <div class="col-lg-6">
-      <div class="contact-card">
-        <h3 class="section-title">Contact Me</h3>
-        <form>
-          <input type="text" class="form-control mb-3" placeholder="Your Name" required>
-          <input type="email" class="form-control mb-3" placeholder="Email" required>
-          <textarea rows="4" class="form-control mb-3" placeholder="Message" required></textarea>
-          <button class="btn btn-primary w-100">Send Message</button>
+<section id="contact" class="reveal">
+  <div class="container container-narrow">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Get in touch</h2>
+        <div class="section-sub">Message me — I'll reply via WhatsApp or email.</div>
+      </div>
+      <div></div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <form id="contactForm" action="https://formspree.io/f/mgvllljd" method="POST" class="contact-card">
+          <input type="hidden" name="_next" value="my-profile/thankyou.html">
+          <label class="form-label visually-hidden">Full name</label>
+          <input id="cname" name="name" class="form-control mb-3" placeholder="Full name" required>
+
+          <label class="form-label visually-hidden">Email</label>
+          <input id="cemail" name="email" type="email" class="form-control mb-3" placeholder="Email" required>
+
+          <label class="form-label visually-hidden">Message</label>
+          <textarea id="cmessage" name="message" rows="5" class="form-control mb-3" placeholder="How can I help?" required></textarea>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary"> <i class="bi bi-send"></i> Send message</button>
+          </div>
+          <div id="formStatus" class="mt-3" style="display:none"></div>
         </form>
       </div>
-    </div>
-    <div class="col-lg-6 d-flex flex-column justify-content-center">
-      <p><i class="bi bi-whatsapp"></i> WhatsApp: <a href="https://wa.me/923458368083" target="_blank">+92 345 8368083</a></p>
-      <p><i class="bi bi-envelope"></i> Email: <a href="mailto:abidaparveen0124@gmail.com">abidaparveen0124@gmail.com</a></p>
-      <p><i class="bi bi-linkedin"></i> LinkedIn: <a href="https://linkedin.com/in/muhammad-tayyab-iftikhar-a88786284" target="_blank">Profile</a></p>
+
+      <div class="col-lg-6">
+        <div class="contact-card">
+          <h5>Contact Info</h5>
+          <p class="muted">Quick ways to reach me</p>
+          <ul class="list-unstyled muted">
+            <li class="mb-2"><i class="bi bi-telephone"></i> WhatsApp: <a href="https://wa.me/923458368083" target="_blank">+92 345 8368083</a></li>
+            <li class="mb-2"><i class="bi bi-envelope"></i> Email: <a href="mailto:abidaparveen0124@gmail.com">abidaparveen0124@gmail.com</a></li>
+            <li class="mb-2"><i class="bi bi-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/muhammad-tayyab-iftikhar-a88786284/" target="_blank">Muhammad Tayyab Iftikhar</a></li>
+          </ul>
+
+          <div class="mt-3">
+            <small class="muted">Available for freelance & contract work. Typical response time: via WhatsApp/email.</small>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  © <span id="year"></span> Muhammad Tayyab Iftikhar • WordPress • SMM • Ads
+<footer class="reveal">
+  <div class="container container-narrow">
+    <div class="d-flex justify-content-between align-items-center flex-column flex-md-row gap-3">
+      <div style="font-weight:800">Muhammad Tayyab Iftikhar</div>
+      <div class="muted">© <span id="year"></span> — Built with Bootstrap • Designed for performance</div>
+    </div>
+  </div>
 </footer>
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+/* -----------------------
+   Basic helpers
+   ----------------------- */
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Typing — lightweight for roles */
+(function(){
+  const el = document.getElementById('typingRole');
+  const roles = ['Ads Specialist','Content & Blog Writer','Social Media Manager','Daraz Store Creator'];
+  let i=0, j=0, forward=true;
+  function tick(){
+    const cur = roles[i];
+    if(forward){ j++; el.textContent = cur.slice(0,j); if(j===cur.length){ forward=false; setTimeout(tick,900); return; } }
+    else{ j--; el.textContent = cur.slice(0,j); if(j===0){ forward=true; i=(i+1)%roles.length; } }
+    setTimeout(tick,80);
+  }
+  tick();
+})();
+
+/* Reveal on scroll with stagger */
+(function(){
+  const items = [...document.querySelectorAll('.reveal')];
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach((e) => {
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        o.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.12});
+  items.forEach((el, idx) => {
+    el.style.transitionDelay = (idx * 80) + 'ms';
+    obs.observe(el);
+  });
+})();
+
+/* Animated counters when visible */
+(function(){
+  const counters = document.querySelectorAll('.counter');
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = +el.dataset.target;
+        const duration = 1400;
+        const start = 0;
+        const startTime = performance.now();
+        function step(now){
+          const progress = Math.min((now - startTime) / duration, 1);
+          el.textContent = Math.floor(progress * (target - start) + start);
+          if(progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        o.unobserve(el);
+      }
+    });
+  }, {threshold:0.4});
+  counters.forEach(c => obs.observe(c));
+})();
+
+/* Portfolio filter */
+(function(){
+  const filters = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.proj');
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      items.forEach(it => {
+        const cat = it.dataset.category || 'other';
+        if(f==='all' || f===cat) it.classList.remove('hidden');
+        else it.classList.add('hidden');
+      });
+    });
+  });
+})();
+
+/* Project modal population */
+(function(){
+  const grid = document.getElementById('portfolioGrid');
+  const modalEl = document.getElementById('projectModal');
+  const modal = new bootstrap.Modal(modalEl);
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.proj');
+    if(!card) return;
+    const img = card.dataset.img;
+    const title = card.dataset.title || '';
+    const desc = card.dataset.desc || '';
+    const link = card.dataset.link || '#';
+    // populate
+    document.getElementById('projectModalTitle').textContent = title;
+    document.getElementById('projectModalImg').src = img;
+    document.getElementById('projectModalImg').alt = title;
+    document.getElementById('projectModalDesc').textContent = desc;
+    document.getElementById('projectModalLink').href = link;
+    modal.show();
+  });
+
+  // keyboard: open card when focused + Enter pressed
+  grid.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){
+      const card = e.target.closest('.proj');
+      if(card) card.click();
+    }
+  });
+})();
+
+/* Contact form progressive enhancement (formspree used) */
+(function(){
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    status.style.display='none';
+    const data = new FormData(form);
+    // attempt to send to formspree (CORS-enabled endpoint)
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: data, headers:{ 'Accept':'application/json' }});
+      if(res.ok){
+        status.style.display='block'; status.innerHTML = '<div class="alert alert-success">Message sent — thank you. I will reply soon.</div>';
+        form.reset();
+      } else {
+        const json = await res.json();
+        throw new Error((json && json.error) ? json.error : 'Submit failed');
+      }
+    } catch(err){
+      // fallback to mailto: prefill (best-effort)
+      const name = document.getElementById('cname').value.trim();
+      const email = document.getElementById('cemail').value.trim();
+      const message = document.getElementById('cmessage').value.trim();
+      const subject = encodeURIComponent('Portfolio contact from ' + name);
+      const body = encodeURIComponent('Name: ' + name + '\\nEmail: ' + email + '\\n\\n' + message);
+      window.location.href = 'mailto:abidaparveen0124@gmail.com?subject='+subject+'&body='+body;
+      status.style.display='block'; status.innerHTML = '<div class="alert alert-warning">Could not submit automatically — mail client opened as fallback.</div>';
+    }
+  });
+})();
+
 </script>
 </body>
 </html>
