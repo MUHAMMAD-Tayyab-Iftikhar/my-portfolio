@@ -2,317 +2,648 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Muhammad Tayyab Iftikhar — Portfolio</title>
-
-<!-- Bootstrap -->
+<meta name="description" content="Muhammad Tayyab Iftikhar — WordPress Web Developer, Social Media Manager & Ads Specialist. Portfolio & contact." />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-<!-- Icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"/>
 
 <style>
+/* -----------------------
+   Variables & base
+   ----------------------- */
 :root{
-  --accent: #0d6efd;
-  --accent2: #6f42c1;
-  --muted: #9ca3af;
-  --bg: #0b0f1a;
+  --bg-900:#04050a;
+  --bg-800:#091026;
+  --glass: rgba(255,255,255,0.04);
+  --glass-2: rgba(255,255,255,0.02);
+  --muted:#9aa4b2;
+  --accent1:#0d6efd;
+  --accent2:#6f42c1;
+  --white:#e9eef8;
+  --card-radius:16px;
+  --max-width:1200px;
+  --ease:cubic-bezier(.16,.8,.29,1);
 }
-html,body{
-  background: var(--bg);
-  font-family: 'Inter', sans-serif;
-  color: #e5e7eb;
-  scroll-behavior:smooth;
+*{box-sizing:border-box}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  background:linear-gradient(180deg,var(--bg-900) 0%, var(--bg-800) 100%);
+  color:var(--white);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
+  -webkit-touch-callout:none;
 }
-h1,h2,h3,h4,h5{ font-weight:700; }
 
-/* Navbar */
+/* -----------------------
+   Scroll progress bar
+   ----------------------- */
+#progress {
+  position:fixed; left:0; top:0; height:4px; width:0;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  z-index:9999; transition: width .12s linear;
+}
+
+/* -----------------------
+   NAV
+   ----------------------- */
 .navbar{
-  background: rgba(15,23,36,0.85);
-  backdrop-filter: blur(12px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid rgba(255,255,255,0.03);
 }
-.nav-link{ color:#cfd7e3; font-weight:500; }
-.nav-link:hover{ color:#fff; }
+.navbar-brand{ font-weight:800; color:var(--white); letter-spacing:-0.02em; }
+.nav-link{ color:#cfe6ff; font-weight:600; }
+.nav-link:hover{ color:#fff; text-decoration:underline; }
 
-/* Hero */
+/* -----------------------
+   HERO: premium glass + animated orbs
+   ----------------------- */
+.hero-wrap{ position:relative; padding:48px 20px 36px; max-width:var(--max-width); margin:0 auto; }
 .hero{
-  min-height:90vh;
-  display:flex; flex-wrap:wrap;
-  align-items:center; justify-content:space-between;
-  padding:4rem 1.5rem;
-  position:relative;
+  display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:center;
+  min-height:84vh;
 }
+@media(max-width:1000px){ .hero{ grid-template-columns:1fr; padding-bottom:20px; } .hero-right{ order:-1; } }
+
+.hero-card{
+  position:relative; z-index:5;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--card-radius);
+  padding:34px;
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 12px 40px rgba(2,6,18,0.6);
+  overflow:visible;
+}
+
+/* floating orbs (subtle and small for perf) */
+.orb{
+  position:absolute; border-radius:50%; filter:blur(60px); opacity:.45; z-index:1; pointer-events:none;
+}
+.orb.a{ width:360px; height:360px; left:-120px; top:-80px; background: radial-gradient(circle at 20% 20%, var(--accent1), transparent 35%); transform:translate3d(0,0,0); animation: floatA 12s ease-in-out infinite;}
+.orb.b{ width:300px; height:300px; right:-80px; bottom:-90px; background: radial-gradient(circle at 60% 60%, var(--accent2), transparent 32%); animation: floatB 16s ease-in-out infinite;}
+@keyframes floatA{ 0%{transform:translateY(0)} 50%{transform:translateY(12px)} 100%{transform:translateY(0)} }
+@keyframes floatB{ 0%{transform:translateY(0)} 50%{transform:translateY(-12px)} 100%{transform:translateY(0)} }
+
+/* Hero text */
 .hero h1{
-  font-size:2.6rem;
-  background:linear-gradient(90deg,#0d6efd,#6f42c1);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  font-size:2.6rem; line-height:1.02; margin:0 0 .6rem;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  letter-spacing:-0.01em;
 }
-.hero p{ color:var(--muted); margin:1rem 0; }
-.hero img{
-  max-width:340px; border-radius:20px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.4);
+.hero .sub{ color:var(--muted); margin-bottom:16px; font-size:1.02rem; }
+.cta-group{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+.btn-primary-lg{
+  padding:.8rem 1.2rem; border-radius:12px; font-weight:800; box-shadow: 0 8px 30px rgba(13,110,253,0.06); border:none;
+}
+.btn-ghost{
+  background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--white); padding:.7rem 1rem; border-radius:12px; font-weight:700;
 }
 
-/* Sections */
-.section-title{
-  font-size:1.6rem;
-  font-weight:800;
-  margin-bottom:.5rem;
+/* profile card right */
+.profile-right{
+  align-self:start;
+  display:flex; justify-content:center; position:relative;
 }
-.section-sub{ color:var(--muted); margin-bottom:2rem; }
+.profile-card{
+  width:100%; max-width:420px; border-radius:18px; overflow:hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03); padding:12px; display:block;
+  box-shadow: 0 18px 40px rgba(2,6,18,0.55);
+}
+.profile-photo{ width:100%; height:420px; border-radius:12px; overflow:hidden; }
+.profile-photo img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .9s var(--ease); transform:scale(1.02); }
+.profile-card:hover .profile-photo img{ transform:scale(1.06) rotate(-0.6deg); }
+.skill-badge{
+  position:absolute; left:22px; bottom:22px; z-index:9; background:rgba(0,0,0,0.45);
+  padding:.5rem .85rem; border-radius:999px; border:1px solid rgba(255,255,255,0.04); font-weight:700;
+}
 
-/* Services */
+/* -----------------------
+   Sections / containers
+   ----------------------- */
+.section{
+  max-width:var(--max-width); margin:0 auto; padding:54px 20px;
+}
+.section .head{ display:flex; justify-content:space-between; align-items:end; gap:12px; margin-bottom:20px; }
+.section-title{ font-weight:800; font-size:1.25rem; margin:0; color:var(--white); }
+.section-sub{ color:var(--muted); font-size:.95rem; margin-top:.35rem; }
+
+/* reveal animation */
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease); will-change:opacity, transform; }
+.reveal.visible{ opacity:1; transform:translateY(0); }
+
+/* -----------------------
+   Services — glass + tilt hint
+   ----------------------- */
+.services-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+@media(max-width:1100px){ .services-grid{ grid-template-columns:repeat(2,1fr);} }
+@media(max-width:576px){ .services-grid{ grid-template-columns:1fr;} }
+
 .service-card{
-  background:rgba(255,255,255,0.04);
-  border-radius:14px;
-  padding:1.5rem;
-  transition:.3s;
-  text-align:center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:14px; padding:20px; border:1px solid rgba(255,255,255,0.03);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+  will-change:transform;
 }
-.service-card:hover{ transform:translateY(-6px); }
+.service-card:hover{ transform:translateY(-10px) scale(1.01); box-shadow: 0 20px 45px rgba(2,6,18,0.5); }
 .service-icon{
-  font-size:2rem; margin-bottom:1rem;
-  color:var(--accent);
+  width:56px; height:56px; border-radius:12px; display:grid; place-items:center;
+  background:linear-gradient(135deg, rgba(13,110,253,0.14), rgba(111,66,193,0.08)); border:1px solid rgba(255,255,255,0.03); font-size:1.35rem;
 }
 
-/* Portfolio */
-.portfolio-item{
-  border-radius:12px; overflow:hidden; position:relative;
-}
-.portfolio-item img{
-  width:100%; height:200px; object-fit:cover; transition:.4s;
-}
-.portfolio-item:hover img{ transform:scale(1.06); }
-.portfolio-overlay{
-  position:absolute; inset:0;
-  display:flex; flex-direction:column;
-  justify-content:flex-end;
-  padding:1rem;
-  background:linear-gradient(to top,rgba(0,0,0,0.65),transparent);
-  opacity:0; transition:.4s;
-}
-.portfolio-item:hover .portfolio-overlay{ opacity:1; }
+/* -----------------------
+   Portfolio — responsive masonry-ish grid + hover overlay
+   ----------------------- */
+.portfolio-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:start; }
+@media(max-width:1100px){ .portfolio-grid{ grid-template-columns:repeat(2,1fr);} }
+@media(max-width:700px){ .portfolio-grid{ grid-template-columns:1fr;} }
 
-/* Metrics */
-.metric{ font-size:2rem; font-weight:800; }
-.metric-label{ color:var(--muted); }
-
-/* Education */
-.educ-card{
-  background:rgba(255,255,255,0.03);
-  padding:1.2rem 1.5rem;
-  border-radius:12px;
-  margin-bottom:1rem;
+.project{
+  position:relative; overflow:hidden; border-radius:12px; border:1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
 }
-.educ-card strong{ color:#fff; }
+.project img{ width:100%; height:240px; object-fit:cover; display:block; transition:transform .5s var(--ease); }
+.project:hover img{ transform:scale(1.06); }
+.project-overlay{
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:16px;
+  background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.12)); transform:translateY(30%); opacity:0; transition:all .36s var(--ease);
+}
+.project:hover .project-overlay{ transform:translateY(0); opacity:1; }
+.project-title{ font-weight:800; margin:0; font-size:1.05rem; }
+.project-sub{ color:var(--muted); margin-top:6px; font-size:.92rem; }
 
-/* Contact */
+/* project action */
+.project-actions{ display:flex; gap:8px; margin-top:10px; }
+.btn-sm-glow{
+  padding:.45rem .6rem; border-radius:10px; font-weight:700; border:none;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#fff;
+  box-shadow: 0 8px 24px rgba(13,110,253,0.08);
+  font-size:.86rem;
+}
+
+/* -----------------------
+   Metrics (counters)
+   ----------------------- */
+.metrics{ display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
+.metric-box{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:12px; padding:18px 22px; min-width:160px; text-align:center; border:1px solid rgba(255,255,255,0.03);
+}
+.metric-num{ font-size:1.9rem; font-weight:900; color:#fff; }
+.metric-label{ color:var(--muted); margin-top:6px; }
+
+/* -----------------------
+   Education timeline (vertical)
+   ----------------------- */
+.timeline{ border-left:2px solid rgba(255,255,255,0.04); padding-left:18px; margin-top:6px; }
+.timeline-item{ position:relative; margin-bottom:18px; padding-left:12px; }
+.timeline-item::before{
+  content:""; position:absolute; left:-21px; top:2px; width:12px; height:12px; border-radius:50%;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2)); border:2px solid rgba(255,255,255,0.04);
+}
+.edu-title{ font-weight:700; }
+.edu-sub{ color:var(--muted); font-size:.95rem; margin-top:6px; }
+
+/* -----------------------
+   Contact split
+   ----------------------- */
+.contact-split{ display:grid; grid-template-columns: 1fr 420px; gap:18px; align-items:center; }
+@media(max-width:1000px){ .contact-split{ grid-template-columns:1fr; } }
+
 .contact-card{
-  background:rgba(255,255,255,0.03);
-  padding:2rem; border-radius:14px;
-}
-.contact-card input,.contact-card textarea{
-  background:rgba(255,255,255,0.05)!important;
-  border:none; color:#fff;
-}
-.contact-card input:focus,.contact-card textarea:focus{
-  box-shadow:0 0 0 2px var(--accent);
+  padding:20px; border-radius:14px; border:1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
 }
 
-/* Footer */
-footer{
-  padding:1.5rem 0;
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,0.08);
-  color:var(--muted);
-  font-size:.9rem;
+/* simple form styling */
+.form-control{
+  background: rgba(255,255,255,0.03); border:none; color:var(--white); border-radius:10px; padding:.7rem .85rem;
+}
+.form-control::placeholder{ color:#8893a0; }
+.form-control:focus{ box-shadow:0 0 0 4px rgba(13,110,253,0.07); outline:none; }
+
+/* footer */
+footer{ padding:22px 20px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,0.03); }
+
+/* performance / prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .orb, .profile-card:hover .profile-photo img, .project img, .service-card, .reveal { transition:none !important; animation:none !important; }
 }
 
-/* Animations */
-[data-animate]{ opacity:0; transform:translateY(30px); transition:all .7s ease; }
-[data-animate].active{ opacity:1; transform:translateY(0); }
+/* small screens polish */
+@media(max-width:420px){
+  .hero h1{ font-size:1.8rem; }
+  .profile-photo{ height:300px; }
+  .project img{ height:200px; }
+}
 </style>
 </head>
 <body>
 
+<div id="progress" aria-hidden="true"></div>
+
 <!-- NAV -->
 <nav class="navbar navbar-expand-lg sticky-top">
-  <div class="container">
-    <a class="navbar-brand text-white fw-bold" href="#">M. Tayyab</a>
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+  <div class="container" style="max-width:var(--max-width)">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <div style="width:44px;height:44px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)">
+        <img src="image/IMG-20231229-WA0007.jpg" alt="Tayyab" style="width:100%;height:100%;object-fit:cover"/>
+      </div>
+      <div>
+        <div style="font-weight:800;color:var(--white)">Muhammad Tayyab</div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:-2px">Dev • SMM</div>
+      </div>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu" aria-expanded="false">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="menu">
-      <ul class="navbar-nav gap-3">
+
+    <div class="collapse navbar-collapse justify-content-end" id="navmenu">
+      <ul class="navbar-nav align-items-center">
         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
         <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item ms-3"><a class="btn btn-sm btn-ghost" href="#contact">Hire Me</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
-<header id="home" class="hero container">
-  <div data-animate>
-    <h1>Muhammad Tayyab Iftikhar</h1>
-    <p>WordPress Developer • Social Media Manager • Ads Specialist</p>
-    <a href="#portfolio" class="btn btn-primary btn-lg me-2">See My Work</a>
-    <a href="#contact" class="btn btn-outline-light btn-lg">Hire Me</a>
-  </div>
-  <div data-animate>
-    <img src="image/profile.jpg" alt="Profile">
+<header id="home" class="hero-wrap" aria-label="Intro">
+  <div class="orb a" aria-hidden="true"></div>
+  <div class="orb b" aria-hidden="true"></div>
+
+  <div class="hero">
+    <div class="hero-card reveal" id="heroMain">
+      <h1>Muhammad Tayyab Iftikhar</h1>
+      <div class="sub">WordPress Developer • Social Media Manager • Ads Specialist</div>
+      <p style="color:var(--muted); max-width:62ch;">
+        I design fast, conversion-focused websites and manage social media & ad campaigns for healthcare and SMEs.
+        I build with modern WordPress workflows (Elementor & WooCommerce) and craft content that converts.
+      </p>
+
+      <div class="cta-group" style="margin-top:14px;">
+        <a href="#portfolio" class="btn btn-primary btn-primary-lg">See Portfolio</a>
+        <a href="#contact" class="btn btn-ghost">Get a Quote</a>
+        <a class="btn btn-sm btn-ghost" href="my-portfolio/MUHAMMAD-Tayyab-Iftikhar-CV.pdf" download><i class="bi bi-download"></i> Resume</a>
+      </div>
+
+      <div style="margin-top:16px;color:var(--muted);font-size:.94rem;">
+        <strong>Key services:</strong> WordPress Development · Social Media Management · Google Ads · Facebook Ads · Daraz Store Creation
+      </div>
+    </div>
+
+    <aside class="profile-right reveal hero-right" id="heroPhoto">
+      <div class="profile-card" role="img" aria-label="Profile photo">
+        <div class="profile-photo">
+          <!-- Replace with your best high-res portrait -->
+          <img src="image/profile.jpg" alt="Muhammad Tayyab Iftikhar — profile">
+        </div>
+        <div class="skill-badge">HTML • CSS • JS • WordPress</div>
+      </div>
+    </aside>
   </div>
 </header>
 
 <!-- SERVICES -->
-<section id="services" class="container py-5">
-  <div class="text-center mb-5" data-animate>
-    <div class="section-title">Services I Offer</div>
-    <div class="section-sub">Complete digital solutions for your business.</div>
+<section id="services" class="section" aria-labelledby="servicesTitle">
+  <div class="head reveal">
+    <div>
+      <h3 id="servicesTitle" class="section-title">Services I Offer</h3>
+      <div class="section-sub">Premium end-to-end digital work — design, build, launch & optimize.</div>
+    </div>
+    <div>
+      <a class="btn btn-sm btn-ghost" href="#contact">Request Quote</a>
+    </div>
   </div>
-  <div class="row g-4">
-    <div class="col-md-6 col-lg-3" data-animate>
-      <div class="service-card">
-        <div class="service-icon"><i class="bi bi-window"></i></div>
-        <h5>WordPress Development</h5>
-        <p>Custom themes, WooCommerce, Elementor & SEO-ready sites.</p>
-      </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon"><i class="bi bi-layout-text-window-reverse"></i></div>
+      <h5 style="margin-top:6px">WordPress Development</h5>
+      <p style="color:var(--muted)">Custom themes, Elementor, WooCommerce, migrations, speed & SEO basics.</p>
     </div>
-    <div class="col-md-6 col-lg-3" data-animate>
-      <div class="service-card">
-        <div class="service-icon"><i class="bi bi-people"></i></div>
-        <h5>Social Media Management</h5>
-        <p>Content creation, scheduling, growth & engagement strategy.</p>
-      </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon"><i class="bi bi-people"></i></div>
+      <h5 style="margin-top:6px">Social Media Management</h5>
+      <p style="color:var(--muted)">Content strategy, design, scheduling and analytics reporting.</p>
     </div>
-    <div class="col-md-6 col-lg-3" data-animate>
-      <div class="service-card">
-        <div class="service-icon"><i class="bi bi-bullseye"></i></div>
-        <h5>Google & FB Ads</h5>
-        <p>Setup, optimization & conversion-focused campaigns.</p>
-      </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon"><i class="bi bi-megaphone"></i></div>
+      <h5 style="margin-top:6px">Google & Facebook Ads</h5>
+      <p style="color:var(--muted)">Campaigns, conversion tracking and ROI-driven optimization.</p>
     </div>
-    <div class="col-md-6 col-lg-3" data-animate>
-      <div class="service-card">
-        <div class="service-icon"><i class="bi bi-shop"></i></div>
-        <h5>Daraz Store Creation</h5>
-        <p>Product uploads, store setup & discoverability boost.</p>
-      </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon"><i class="bi bi-shop"></i></div>
+      <h5 style="margin-top:6px">Daraz Store Creation</h5>
+      <p style="color:var(--muted)">Listings, store setup and marketplace optimisation.</p>
     </div>
   </div>
 </section>
 
 <!-- PORTFOLIO -->
-<section id="portfolio" class="container py-5">
-  <div class="text-center mb-5" data-animate>
-    <div class="section-title">Portfolio</div>
-    <div class="section-sub">Some of my recent work.</div>
+<section id="portfolio" class="section" aria-labelledby="portfolioTitle">
+  <div class="head reveal">
+    <div>
+      <h3 id="portfolioTitle" class="section-title">Selected Projects</h3>
+      <div class="section-sub">Click project to view details. (Images are site screenshots.)</div>
+    </div>
+    <div></div>
   </div>
-  <div class="row g-4">
-    <div class="col-md-6 col-lg-4" data-animate>
-      <div class="portfolio-item">
-        <img src="https://s.wordpress.com/mshots/v1/https://dratharhameed.com?w=1200" alt="">
-        <div class="portfolio-overlay">
-          <h5>Dr Athar Hameed Website</h5>
-          <small>Healthcare site with blogs & SEO.</small>
+
+  <div class="portfolio-grid">
+    <!-- Project: Dr Athar Hameed -->
+    <article class="project reveal" role="button" tabindex="0" data-link="https://dratharhameed.com/" data-title="Dr Athar Hameed — Clinic Website" data-desc="A medical clinic website with service pages, blog and responsive UI.">
+      <img src="https://s.wordpress.com/mshots/v1/https://dratharhameed.com?w=1200" alt="Dr Athar Hameed — Clinic Website screenshot">
+      <div class="project-overlay">
+        <div class="project-title">Dr Athar Hameed</div>
+        <div class="project-sub">Clinic website — healthcare</div>
+        <div class="project-actions">
+          <button class="btn-sm-glow" data-action="view">View</button>
+          <a class="btn btn-sm btn-outline-light" href="https://dratharhameed.com/" target="_blank" rel="noopener">Visit</a>
         </div>
       </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-animate>
-      <div class="portfolio-item">
-        <img src="https://s.wordpress.com/mshots/v1/https://saeekamil.com?w=1200" alt="">
-        <div class="portfolio-overlay">
-          <h5>Saeekamil</h5>
-          <small>Business services site with branding.</small>
+    </article>
+
+    <!-- Project: Sae e Kamil -->
+    <article class="project reveal" role="button" tabindex="0" data-link="https://saeekamil.com/" data-title="Sae e Kamil — Website" data-desc="Service website with custom layout and content strategy.">
+      <img src="https://s.wordpress.com/mshots/v1/https://saeekamil.com?w=1200" alt="Sae e Kamil screenshot">
+      <div class="project-overlay">
+        <div class="project-title">Sae e Kamil</div>
+        <div class="project-sub">Service website — branding & layout</div>
+        <div class="project-actions">
+          <button class="btn-sm-glow" data-action="view">View</button>
+          <a class="btn btn-sm btn-outline-light" href="https://saeekamil.com/" target="_blank" rel="noopener">Visit</a>
         </div>
       </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-animate>
-      <div class="portfolio-item">
-        <img src="https://s.wordpress.com/mshots/v1/https://accountkeep.com?w=1200" alt="">
-        <div class="portfolio-overlay">
-          <h5>AccountKeep</h5>
-          <small>Finance solutions with responsive UI.</small>
+    </article>
+
+    <!-- Project: AccountKeep -->
+    <article class="project reveal" role="button" tabindex="0" data-link="https://accountkeep.com/" data-title="AccountKeep — Business Website" data-desc="Landing & service pages for accounting and finance solutions.">
+      <img src="https://s.wordpress.com/mshots/v1/https://accountkeep.com?w=1200" alt="AccountKeep screenshot">
+      <div class="project-overlay">
+        <div class="project-title">AccountKeep</div>
+        <div class="project-sub">Business website — responsive UI</div>
+        <div class="project-actions">
+          <button class="btn-sm-glow" data-action="view">View</button>
+          <a class="btn btn-sm btn-outline-light" href="https://accountkeep.com/" target="_blank" rel="noopener">Visit</a>
         </div>
       </div>
-    </div>
+    </article>
+
+    <!-- Project: Virtual Medical Assist -->
+    <article class="project reveal" role="button" tabindex="0" data-link="https://www.virtualmedicalassist.com/" data-title="Virtual Medical Assist — Corporate" data-desc="Corporate website implementation for virtual healthcare services.">
+      <img src="https://s.wordpress.com/mshots/v1/https://www.virtualmedicalassist.com?w=1200" alt="Virtual Medical Assist screenshot">
+      <div class="project-overlay">
+        <div class="project-title">Virtual Medical Assist</div>
+        <div class="project-sub">Corporate healthcare site</div>
+        <div class="project-actions">
+          <button class="btn-sm-glow" data-action="view">View</button>
+          <a class="btn btn-sm btn-outline-light" href="https://www.virtualmedicalassist.com/" target="_blank" rel="noopener">Visit</a>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
 
 <!-- METRICS -->
-<section class="container py-5 text-center">
-  <div class="row g-4">
-    <div class="col-6 col-md-3" data-animate>
-      <div class="metric">20+</div>
+<section class="section text-center">
+  <div class="metrics reveal">
+    <div class="metric-box">
+      <div class="metric-num" id="count-web">0</div>
       <div class="metric-label">Websites Built</div>
     </div>
-    <div class="col-6 col-md-3" data-animate>
-      <div class="metric">5+</div>
+
+    <div class="metric-box">
+      <div class="metric-num" id="count-niches">0</div>
       <div class="metric-label">Active Niches</div>
     </div>
   </div>
 </section>
 
 <!-- EDUCATION -->
-<section id="education" class="container py-5">
-  <div class="text-center mb-5" data-animate>
-    <div class="section-title">Education</div>
-    <div class="section-sub">My academic journey.</div>
+<section id="education" class="section" aria-labelledby="educationTitle">
+  <div class="head reveal">
+    <div>
+      <h3 id="educationTitle" class="section-title">Education</h3>
+      <div class="section-sub">Academic background</div>
+    </div>
   </div>
-  <div data-animate>
-    <div class="educ-card"><strong>Bachelor in Software Engineering</strong> — Lahore Garrison University (LGU), Lahore<br>
-    2022 – Expected 2026 | Current CGPA: 3.20 (7th Semester)</div>
-    <div class="educ-card"><strong>Intermediate (Pre-Engineering)</strong> — APS Garrison Degree College, Quetta Cantt</div>
-    <div class="educ-card"><strong>Matriculation</strong> — Alma Mater Grammar High School & College, Shaheenabad, Sargodha</div>
+
+  <div class="timeline reveal" aria-hidden="false">
+    <div class="timeline-item">
+      <div class="edu-title">BSc Software Engineering — Lahore Garrison University (LGU), Lahore</div>
+      <div class="edu-sub">2022 – Expected 2026 | Current CGPA: 3.20 (7th Semester)</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="edu-title">Intermediate (Pre-Engineering) — APS Garrison Degree College, Quetta Cantt</div>
+      <div class="edu-sub"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="edu-title">Matriculation — Alma Mater Grammar High School and College, Shaheenabad, Sargodh</div>
+      <div class="edu-sub"></div>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="container py-5">
-  <div class="row g-4">
-    <div class="col-lg-6" data-animate>
-      <div class="contact-card">
-        <h3 class="section-title">Contact Me</h3>
-        <form>
-          <input type="text" class="form-control mb-3" placeholder="Your Name" required>
-          <input type="email" class="form-control mb-3" placeholder="Email" required>
-          <textarea rows="4" class="form-control mb-3" placeholder="Message" required></textarea>
-          <button class="btn btn-primary w-100">Send Message</button>
-        </form>
+<section id="contact" class="section" aria-labelledby="contactTitle">
+  <div class="head reveal">
+    <div>
+      <h3 id="contactTitle" class="section-title">Get in touch</h3>
+      <div class="section-sub">Send a message — I'll reply via WhatsApp or email.</div>
+    </div>
+  </div>
+
+  <div class="contact-split">
+    <form id="contactForm" class="contact-card reveal" action="https://formspree.io/f/mgvllljd" method="POST" novalidate>
+      <input type="hidden" name="_next" value="my-profile/thankyou.html">
+      <label class="visually-hidden">Full name</label>
+      <input id="name" name="name" class="form-control mb-3" placeholder="Full name" required>
+
+      <label class="visually-hidden">Email</label>
+      <input id="email" name="email" type="email" class="form-control mb-3" placeholder="Email" required>
+
+      <label class="visually-hidden">Message</label>
+      <textarea id="message" name="message" rows="5" class="form-control mb-3" placeholder="How can I help?" required></textarea>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-primary-lg"> <i class="bi bi-send"></i> Send message</button>
       </div>
-    </div>
-    <div class="col-lg-6 d-flex flex-column justify-content-center" data-animate>
-      <p><i class="bi bi-whatsapp"></i> WhatsApp: <a href="https://wa.me/923458368083" target="_blank">+92 345 8368083</a></p>
-      <p><i class="bi bi-envelope"></i> Email: <a href="mailto:abidaparveen0124@gmail.com">abidaparveen0124@gmail.com</a></p>
-      <p><i class="bi bi-linkedin"></i> LinkedIn: <a href="https://linkedin.com/in/muhammad-tayyab-iftikhar-a88786284" target="_blank">Profile</a></p>
-    </div>
+      <div id="formStatus" style="display:none;margin-top:12px;"></div>
+    </form>
+
+    <aside class="contact-card reveal" aria-label="Contact info">
+      <h5 style="margin-top:0">Contact Info</h5>
+      <p class="muted">Quick ways to reach me</p>
+      <ul style="list-style:none;padding-left:0;color:var(--muted);">
+        <li class="mb-2"><i class="bi bi-whatsapp"></i> WhatsApp: <a href="https://wa.me/923458368083" target="_blank">+92 345 8368083</a></li>
+        <li class="mb-2"><i class="bi bi-envelope"></i> Email: <a href="mailto:abidaparveen0124@gmail.com">abidaparveen0124@gmail.com</a></li>
+        <li class="mb-2"><i class="bi bi-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/muhammad-tayyab-iftikhar-a88786284/" target="_blank">Muhammad Tayyab Iftikhar</a></li>
+      </ul>
+      <div style="margin-top:14px">
+        <small class="muted">Available for freelance & contract work.</small>
+      </div>
+    </aside>
   </div>
 </section>
 
+<!-- Project Modal -->
+<div class="modal fade" id="projModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content" style="background:linear-gradient(180deg,rgba(10,12,20,0.96),rgba(8,10,18,0.96));border:1px solid rgba(255,255,255,0.03);color:var(--white)">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="projTitle">Project</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-md-7">
+            <img id="projImg" src="" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:8px">
+          </div>
+          <div class="col-md-5">
+            <h6 class="muted">Overview</h6>
+            <p id="projDesc" class="muted"></p>
+            <div style="margin-top:12px;">
+              <a id="projLink" class="btn btn-sm btn-primary" href="#" target="_blank">Visit Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
-  © <span id="year"></span> Muhammad Tayyab Iftikhar • WordPress • SMM • Ads
+  <div style="max-width:var(--max-width);margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+    <div style="font-weight:800">Muhammad Tayyab Iftikhar</div>
+    <div style="color:var(--muted)">© <span id="year"></span> — Built with Bootstrap • Designed for performance</div>
+  </div>
 </footer>
 
+<!-- JS (lightweight, only what's needed) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// Current year
+/* Helper: set current year */
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Scroll animations
-const animateEls = document.querySelectorAll('[data-animate]');
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){ entry.target.classList.add('active'); }
+/* Smooth reveal on scroll */
+(function(){
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); e.target.classList.remove('reveal'); o.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+})();
+
+/* Scroll progress */
+(function(){
+  const prog = document.getElementById('progress');
+  function update(){ const h = document.documentElement; const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight))*100; prog.style.width = pct + '%'; }
+  window.addEventListener('scroll', update, {passive:true});
+  update();
+})();
+
+/* Counters: animate to targets with + sign */
+(function(){
+  const animateCounter = (el, target) => {
+    let start = 0; const dur = 1200; const step = (timestamp, startTime) => {
+      if(!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / dur, 1);
+      el.textContent = Math.floor(progress * (target - 0) + 0) + (progress === 1 ? '+' : '');
+      if(progress < 1) requestAnimationFrame((t)=> step(t, startTime));
+    };
+    requestAnimationFrame(step);
+  };
+
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const web = document.getElementById('count-web');
+        const niches = document.getElementById('count-niches');
+        animateCounter(web, 20);
+        animateCounter(niches, 5);
+        o.disconnect();
+      }
+    });
+  }, {threshold:0.5});
+  const el = document.querySelector('.metrics');
+  if(el) obs.observe(el);
+})();
+
+/* Portfolio modal open */
+(function(){
+  const modalEl = document.getElementById('projModal');
+  const modal = new bootstrap.Modal(modalEl);
+  document.querySelectorAll('.project').forEach(card => {
+    card.addEventListener('click', (e) => {
+      // allow click on Visit link to follow
+      if(e.target.closest('a')) return;
+      const img = card.querySelector('img').src || card.dataset.img;
+      const title = card.dataset.title || card.querySelector('.project-title').textContent;
+      const desc = card.dataset.desc || '';
+      const link = card.dataset.link || '#';
+      document.getElementById('projImg').src = img;
+      document.getElementById('projTitle').textContent = title;
+      document.getElementById('projDesc').textContent = desc;
+      document.getElementById('projLink').href = link;
+      modal.show();
+    });
+    // keyboard: Enter opens
+    card.addEventListener('keydown', (ev) => { if(ev.key === 'Enter') card.click(); });
   });
-},{threshold:0.15});
-animateEls.forEach(el=>observer.observe(el));
+})();
+
+/* Contact form: submit to Formspree, fallback to mailto */
+(function(){
+  const form = document.getElementById('contactForm'), status = document.getElementById('formStatus');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.style.display='none';
+    const fd = new FormData(form);
+    try{
+      const res = await fetch(form.action, { method:'POST', body: fd, headers:{ 'Accept':'application/json' } });
+      if(res.ok){
+        status.style.display='block'; status.innerHTML = '<div class="alert alert-success">Message sent — thank you.</div>';
+        form.reset();
+      } else {
+        throw new Error('Network');
+      }
+    } catch(err){
+      // fallback mailto
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const subject = encodeURIComponent('Portfolio contact from ' + name);
+      const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+      window.location.href = 'mailto:abidaparveen0124@gmail.com?subject=' + subject + '&body=' + body;
+      status.style.display='block'; status.innerHTML = '<div class="alert alert-warning">Could not submit automatically — opened mail client as fallback.</div>';
+    }
+  });
+})();
+
+/* Micro-optimization: disable pointer-events on heavy orbs on mobile to avoid touch lag */
+(function(){
+  const orbs = document.querySelectorAll('.orb');
+  if('ontouchstart' in window || navigator.maxTouchPoints) orbs.forEach(o => o.style.display='none');
+})();
 </script>
 </body>
 </html>
